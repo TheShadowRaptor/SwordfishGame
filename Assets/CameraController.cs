@@ -4,42 +4,38 @@ using UnityEngine;
 
 namespace SwordfishGame
 {
-    public class PlayerController : MonoBehaviour
+    public class CameraController : MonoBehaviour
     {
+        float xRotation;
+
         // Singletons
         InputManager inputManager;
         PlayerStats playerStats;
-
-        // Components
-        Rigidbody rb;
+        PlayerController playerController;
 
         // Start is called before the first frame update
         void Start()
         {
             FindComponents();
-            inputManager.InputEnabled(true);
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         // Update is called once per frame
         void Update()
         {
+             xRotation -= inputManager.MouseY;
+             xRotation = Mathf.Clamp(xRotation, -90f, playerStats.MinViewDistance);
 
+            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            playerController.transform.Rotate(Vector3.up * inputManager.MouseX);
         }
-
-        private void FixedUpdate()
-        {
-            Vector3 input = inputManager.PlayerMovementInput;
-            float speed = playerStats.MovementSpeed;
-            Vector3 playerVelocity = new Vector3(input.x * speed, rb.velocity.y, input.z * speed);
-            rb.velocity = transform.TransformDirection(playerVelocity);
-        }      
 
         void FindComponents()
         {
             inputManager = MasterSingleton.Instance.InputManager;
             playerStats = MasterSingleton.Instance.PlayerStats;
+            playerController = MasterSingleton.Instance.PlayerController;
 
-            rb = gameObject.GetComponent<Rigidbody>();
         }
     }
 }

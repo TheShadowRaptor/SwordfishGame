@@ -31,13 +31,15 @@ namespace SwordfishGame
                 instance = this;
                 DontDestroyOnLoad(gameObject);
             }
+
+            playerStats = transform.Find("Player").GetComponent<PlayerStats>();
+            playerController = transform.Find("Player").GetComponent<PlayerController>();
+            inputManager = transform.Find("InputManager").GetComponent<InputManager>();
         }
 
         private void Start()
         {
-            playerStats = transform.Find("Player").GetComponent<PlayerStats>();
-            playerController = transform.Find("Player").GetComponent<PlayerController>();
-            inputManager = transform.Find("InputManager").GetComponent<InputManager>();
+
         }
     }
 }

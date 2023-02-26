@@ -7,16 +7,60 @@ namespace SwordfishGame
 {
     public class InputManager : MonoBehaviour
     {
-        public InputAction moveAction;
+        public InputAction playerMoveAction;
 
         // Switches
         bool inputEnabled;
 
         // Structs
-        private Vector3 movementInput;
+        private Vector3 playerMovementInput;
+
+        // Singletons
+        PlayerStats playerStats;
+
+        // Varibles
+        float mouseX;
+        float mouseY;
 
         //Gets/Sets
-        public Vector3 MovementInput { get => movementInput; }
+        public Vector3 PlayerMovementInput { get => playerMovementInput; }
+        public float MouseX { get => mouseX; }
+        public float MouseY { get => mouseY; }
+
+        void Start()
+        {
+            FindComponents();
+        }
+
+        void Update()
+        {
+            ManageInput();
+        }
+
+        void OnMovePreformed(InputAction.CallbackContext context)
+        {
+            // Reads input values
+            playerMovementInput = context.ReadValue<Vector3>();
+        }
+
+        void ManageInput()
+        {
+            if (playerMoveAction == null) return;
+            if (inputEnabled)
+            {
+                playerMoveAction.Enable();
+                playerMoveAction.performed += OnMovePreformed;
+
+                // Mouse Input (Using old input system)
+                mouseX = Input.GetAxis("Mouse X") * playerStats.MouseSensitivity * Time.deltaTime;
+                mouseY = Input.GetAxis("Mouse Y") * playerStats.MouseSensitivity * Time.deltaTime;
+            }
+            else
+            {
+                playerMoveAction.Disable();
+                playerMoveAction.performed -= OnMovePreformed;
+            }
+        }
 
         public void InputEnabled(bool on)
         {
@@ -29,25 +73,9 @@ namespace SwordfishGame
             inputEnabled = false;
         }
 
-        public void OnMovePreformed(InputAction.CallbackContext context)
+        void FindComponents()
         {
-            // Reads input values
-            movementInput = context.ReadValue<Vector3>();
-        }
-
-        public void ManageInput()
-        {
-            if (moveAction == null) return;
-            if (inputEnabled)
-            {
-                moveAction.Enable();
-                moveAction.performed += OnMovePreformed;
-            }
-            else
-            {
-                moveAction.Disable();
-                moveAction.performed -= OnMovePreformed;
-            }
+            playerStats = MasterSingleton.Instance.PlayerStats;
         }
     }
 }
