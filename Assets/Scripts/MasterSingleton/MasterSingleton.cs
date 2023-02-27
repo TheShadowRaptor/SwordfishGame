@@ -13,11 +13,13 @@ namespace SwordfishGame
         private PlayerStats playerStats;
         private PlayerController playerController;
         private InputManager inputManager;
+        private BulletManager bulletManager;
 
         // SingletonObjects Gets/Sets
         public PlayerStats PlayerStats { get => playerStats; }
         public PlayerController PlayerController { get => playerController; }
         public InputManager InputManager { get => inputManager; }
+        public BulletManager BulletManager { get => bulletManager; }
 
         // Awake is called when object is first initialized
         void Awake()
@@ -35,11 +37,7 @@ namespace SwordfishGame
             playerStats = transform.Find("Player").GetComponent<PlayerStats>();
             playerController = transform.Find("Player").GetComponent<PlayerController>();
             inputManager = transform.Find("InputManager").GetComponent<InputManager>();
-        }
-
-        private void Start()
-        {
-
+            bulletManager = transform.Find("BulletManager").GetComponent<BulletManager>();
         }
     }
 }

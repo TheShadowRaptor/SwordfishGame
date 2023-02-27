@@ -17,7 +17,7 @@ namespace SwordfishGame
         void Start()
         {
             FindComponents();
-            inputManager.InputEnabled(true);
+            inputManager.EnableInput(true);
         }
 
         // Update is called once per frame
@@ -28,16 +28,26 @@ namespace SwordfishGame
 
         private void FixedUpdate()
         {
+            MovePlayer();
+        }   
+        
+        void MovePlayer()
+        {
+            // For easier Reading
             Vector3 input = inputManager.PlayerMovementInput;
             float speed = playerStats.MovementSpeed;
+
             Vector3 playerVelocity = new Vector3(input.x * speed, rb.velocity.y, input.z * speed);
+
+            // Moves player
             rb.velocity = transform.TransformDirection(playerVelocity);
-        }      
+        }
 
         void FindComponents()
         {
             inputManager = MasterSingleton.Instance.InputManager;
             playerStats = MasterSingleton.Instance.PlayerStats;
+
 
             rb = gameObject.GetComponent<Rigidbody>();
         }

@@ -7,13 +7,16 @@ namespace SwordfishGame
 {
     public class InputManager : MonoBehaviour
     {
+        // Controls
         public InputAction playerMoveAction;
+        public InputAction attackAction;
 
         // Switches
         bool inputEnabled;
 
         // Structs
         private Vector3 playerMovementInput;
+        private bool attackInput;
 
         // Singletons
         PlayerStats playerStats;
@@ -24,6 +27,7 @@ namespace SwordfishGame
 
         //Gets/Sets
         public Vector3 PlayerMovementInput { get => playerMovementInput; }
+        public bool AttackInput { get => attackInput; }
         public float MouseX { get => mouseX; }
         public float MouseY { get => mouseY; }
 
@@ -43,13 +47,20 @@ namespace SwordfishGame
             playerMovementInput = context.ReadValue<Vector3>();
         }
 
+        void OnAttackPreformed(InputAction.CallbackContext context)
+        {
+            attackInput = context.ReadValueAsButton();
+        }
+
         void ManageInput()
         {
             if (playerMoveAction == null) return;
             if (inputEnabled)
             {
                 playerMoveAction.Enable();
+                attackAction.Enable();
                 playerMoveAction.performed += OnMovePreformed;
+                attackAction.performed += OnAttackPreformed;
 
                 // Mouse Input (Using old input system)
                 mouseX = Input.GetAxis("Mouse X") * playerStats.MouseSensitivity * Time.deltaTime;
@@ -58,11 +69,13 @@ namespace SwordfishGame
             else
             {
                 playerMoveAction.Disable();
+                attackAction.Disable();
                 playerMoveAction.performed -= OnMovePreformed;
+                attackAction.performed += OnAttackPreformed;
             }
         }
 
-        public void InputEnabled(bool on)
+        public void EnableInput(bool on)
         {
             // Freedom to toggle controls when needed
             if (on)

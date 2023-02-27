@@ -23,8 +23,8 @@ namespace SwordfishGame
         // Update is called once per frame
         void Update()
         {
-             xRotation -= inputManager.MouseY;
-             xRotation = Mathf.Clamp(xRotation, -90f, playerStats.MinViewDistance);
+            xRotation -= inputManager.MouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, playerStats.MinViewDistance);
 
             transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
             playerController.transform.Rotate(Vector3.up * inputManager.MouseX);
