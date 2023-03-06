@@ -9,7 +9,13 @@ namespace SwordfishGame
         public int initialCapacity = 3;
         public GameObject bulletType;
         public List<GameObject> bullets = new List<GameObject>();
-        public void Start()
+
+        private void Start()
+        {
+            BulletPoolInstantiation();
+        }
+
+        public void BulletPoolInstantiation()
         {
             for (int i = 0; i < initialCapacity; i++)
             {

@@ -17,7 +17,6 @@ namespace SwordfishGame
         void Start()
         {
             FindComponents();
-            Cursor.lockState = CursorLockMode.Locked;
         }
 
         // Update is called once per frame

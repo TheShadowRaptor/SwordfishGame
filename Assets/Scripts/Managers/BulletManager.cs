@@ -10,13 +10,16 @@ namespace SwordfishGame
         // Start is called before the first frame update
         void Start()
         {
-            bulletPool = GetComponent<BulletPool>();
+            
         }
 
         // Update is called once per frame
         void Update()
         {
-        
+            if (bulletPool == null)
+            {
+                bulletPool = GameObject.Find("BulletPool").GetComponent<BulletPool>();
+            }
         }
     }
 }

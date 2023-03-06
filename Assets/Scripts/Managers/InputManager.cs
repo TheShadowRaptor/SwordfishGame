@@ -12,7 +12,7 @@ namespace SwordfishGame
         public InputAction attackAction;
 
         // Switches
-        bool inputEnabled;
+        public bool inputEnabled;
 
         // Structs
         private Vector3 playerMovementInput;
@@ -38,7 +38,15 @@ namespace SwordfishGame
 
         void Update()
         {
+            if (MasterSingleton.Instance.GameManager.gameState == GameManager.GameState.gameplay) EnableInput(true);
+            else EnableInput(false);
             ManageInput();
+        }
+
+        public void EnableInput(bool enabled)
+        {
+            if (enabled) inputEnabled = true;
+            else inputEnabled = false;
         }
 
         void OnMovePreformed(InputAction.CallbackContext context)
@@ -73,17 +81,6 @@ namespace SwordfishGame
                 playerMoveAction.performed -= OnMovePreformed;
                 attackAction.performed += OnAttackPreformed;
             }
-        }
-
-        public void EnableInput(bool on)
-        {
-            // Freedom to toggle controls when needed
-            if (on)
-            {
-                inputEnabled = true;
-                return;
-            }
-            inputEnabled = false;
         }
 
         void FindComponents()

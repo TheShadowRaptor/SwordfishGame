@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 
 namespace SwordfishGame
@@ -17,7 +18,6 @@ namespace SwordfishGame
         void Start()
         {
             FindComponents();
-            inputManager.EnableInput(true);
         }
 
         // Update is called once per frame
@@ -30,6 +30,12 @@ namespace SwordfishGame
         {
             MovePlayer();
         }   
+
+        public void SpawnOnSpawnPoint()
+        {
+            Transform spawnPointTranform = GameObject.Find("PlayerSpawnPoint").transform;
+            gameObject.transform.position = spawnPointTranform.position;
+        }
         
         void MovePlayer()
         {
