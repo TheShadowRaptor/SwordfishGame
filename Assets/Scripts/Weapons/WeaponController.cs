@@ -32,7 +32,8 @@ namespace SwordfishGame
         // Update is called once per frame
         void Update()
         {
-            bulletManager.bulletPool.FindWeapon(gameObject);
+            if (MasterSingleton.Instance.BulletManager.bulletPool == null) return;
+            bulletManager.bulletPool.LoadInWeapon();
             ManageReloadingTimer();
             HandleWeapon();
         }
@@ -68,7 +69,8 @@ namespace SwordfishGame
                     reloaded = true;
                 }
             }
-            else if (reloaded)
+
+            if (reloaded)
             {
                 bulletManager.bulletPool.SetBulletActives();
             }

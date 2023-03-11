@@ -16,6 +16,7 @@ namespace SwordfishGame
         // Update is called once per frame
         void Update()
         {
+            if (MasterSingleton.Instance.GameManager.gameState != GameManager.GameState.gameplay) return;
             if (bulletPool == null)
             {
                 bulletPool = GameObject.Find("BulletPool").GetComponent<BulletPool>();

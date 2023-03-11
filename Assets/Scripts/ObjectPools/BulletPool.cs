@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ namespace SwordfishGame
         public GameObject bulletType;
         public List<GameObject> bullets = new List<GameObject>();
 
+        public GameObject weapon;
+
         private void Start()
         {
             BulletPoolInstantiation();
@@ -20,13 +23,13 @@ namespace SwordfishGame
         {
             for (int i = 0; i < initialCapacity; i++)
             {
-                GameObject bullet = Instantiate(bulletType, gameObject.transform.parent);
+                GameObject bullet = Instantiate(bulletType, weapon.transform.parent);
                 bullets.Add(bullet);
                 bullets[i].SetActive(false);
             }
         }
 
-        public void FindWeapon(GameObject weapon)
+        public void LoadInWeapon()
         {
             // Line bullet up to gun muzzle
             Vector3 weaponPos = weapon.transform.position;
@@ -47,8 +50,6 @@ namespace SwordfishGame
         {
             if (bullets.Count > 0)
             {
-                // Get the first bullet from the list
-
                 // Shoot bullet from gun muzzle
                 Vector3 weaponPos = weapon.transform.position;
                 quaternion weaponRot = weapon.transform.rotation;
@@ -56,6 +57,9 @@ namespace SwordfishGame
                 bullets[0].transform.parent = null;
                 bullets[0].transform.position = weaponPos;
                 bullets[0].transform.rotation = weaponRot;
+
+                bullets[0].GetComponent<Bullet>().Fired();
+
                 ReturnBullet(bullets[0]);
                 bullets.RemoveAt(0);
             }
