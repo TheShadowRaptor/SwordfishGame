@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialCapacity: 3
-  bulletType: {fileID: 3243287079475561837, guid: 634abc903582aeb40aaf27221019ba3f,
+  bulletType: {fileID: 4802561890092303581, guid: 634abc903582aeb40aaf27221019ba3f,
     type: 3}
   bullets: []
 --- !u!4 &428968131
