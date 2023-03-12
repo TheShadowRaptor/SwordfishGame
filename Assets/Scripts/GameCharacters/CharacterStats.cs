@@ -2,28 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CharacterStats : MonoBehaviour
+namespace SwordfishGame
 {
-    [Header("Settings")]
-    [SerializeField] protected int health;
-    [SerializeField] protected float movementSpeed;
-
-    protected bool isAlive;
-
-    // Gets/Sets
-    public float MovementSpeed { get => movementSpeed; }
-
-    public void TakeDamage(int damage)
+    public abstract class CharacterStats : MonoBehaviour
     {
-        health -= damage;
-    }
+        [Header("Settings")]
+        [SerializeField] protected int health;
+        [SerializeField] protected float movementSpeed;
 
-    protected void CheckIfAlive()
-    {
-        if (health <= 0)
+        protected bool isAlive;
+
+        // Gets/Sets
+        public float MovementSpeed { get => movementSpeed; }
+
+        public void TakeDamage(int damage)
         {
-            health = 0;
-            isAlive = false;
+            health -= damage;
+        }
+
+        protected void CheckIfAlive()
+        {
+            if (health <= 0)
+            {
+                health = 0;
+                isAlive = false;
+            }
         }
     }
 }

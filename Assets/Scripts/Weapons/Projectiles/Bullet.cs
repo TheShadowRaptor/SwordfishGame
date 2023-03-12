@@ -71,7 +71,7 @@ namespace SwordfishGame
                 this.gameObject.transform.parent = enemy.transform;
             }
 
-            if (other.gameObject.CompareTag("Terrain") && canMove)
+            if (other.gameObject.CompareTag("Terrain") && canMove || other.gameObject.CompareTag("Ship") && canMove)
             {
                 canMove = false;
                 rb.isKinematic = true;
