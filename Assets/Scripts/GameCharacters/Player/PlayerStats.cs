@@ -6,18 +6,16 @@ namespace SwordfishGame
 {
     public class PlayerStats : CharacterStats
     {
-        [SerializeField] int bulletSpeed = 50;
-        [SerializeField] int bulletDamage = 1;
+        [SerializeField] int damage = 1;
 
         [Header("CamerSettings")]
         [SerializeField] float mouseSensitivity = 100f;
-        [SerializeField] float minViewDistance = 25f;
+        [SerializeField] float minViewDistance = 45f;
 
         // Gets/Sets
         public float MouseSensitivity { get => mouseSensitivity; }
         public float MinViewDistance { get => minViewDistance; }
-        public int BulletSpeed { get => bulletSpeed; }
-        public int BulletDamage { get => bulletDamage; }
+        public int Damage { get => damage; }
 
         // Start is called before the first frame update
         void Start()

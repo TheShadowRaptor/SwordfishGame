@@ -14,18 +14,20 @@ namespace SwordfishGame
         private LevelManager levelManager;
         private UIManager uIManager;
         private InputManager inputManager;
-        private BulletManager bulletManager;
         private PlayerStats playerStats;
         private PlayerController playerController;
+        private WeaponController weaponController;
+        private SpearPool spearPool;
 
         // SingletonObjects Gets/Sets
         public GameManager GameManager { get => gameManager; }
         public LevelManager LevelManager { get => levelManager; }
         public UIManager UIManager { get => uIManager; }
         public InputManager InputManager { get => inputManager; }
-        public BulletManager BulletManager { get => bulletManager; }
         public PlayerStats PlayerStats { get => playerStats; }
         public PlayerController PlayerController { get => playerController; }
+        public WeaponController WeaponController { get => weaponController; }
+        public SpearPool SpearPool { get => spearPool; }
 
         // Awake is called when object is first initialized
         void Awake()
@@ -43,13 +45,14 @@ namespace SwordfishGame
             DontDestroyOnLoad(gameObject);
 
             // Find child gameobjects
-            gameManager = transform.Find("GameManager").GetComponent<GameManager>();
-            levelManager = transform.Find("LevelManager").GetComponent<LevelManager>();
-            uIManager = transform.Find("UIManager").GetComponent<UIManager>();
-            inputManager = transform.Find("InputManager").GetComponent<InputManager>();
-            bulletManager = transform.Find("BulletManager").GetComponent<BulletManager>();
-            playerStats = transform.Find("Player").GetComponent<PlayerStats>();
-            playerController = transform.Find("Player").GetComponent<PlayerController>();
+            gameManager = GetComponentInChildren<GameManager>();
+            levelManager = GetComponentInChildren<LevelManager>();
+            uIManager = GetComponentInChildren<UIManager>();
+            inputManager = GetComponentInChildren<InputManager>();
+            playerStats = GetComponentInChildren<PlayerStats>();
+            playerController = GetComponentInChildren<PlayerController>();
+            weaponController = GetComponentInChildren<WeaponController>();
+            spearPool = GetComponentInChildren<SpearPool>();
         }
     }
 }

@@ -8,82 +8,97 @@ namespace SwordfishGame
     {
         // Singletons
         InputManager inputManager;
-        BulletManager bulletManager;
 
-        [Header("Weapon Settings")]
-        [SerializeField] int chamberCapacity = 1;
-        [SerializeField] float reloadTimer = 1;
+        [Header("Components")]
+        [SerializeField] protected Animator weaponAnimator;
+        [SerializeField] protected BoxCollider hitBox;
 
-        // Resets
-        float reloadTimerReset;
+        protected int chamberAmmo = 1;
 
-        int bulletsInChamber = 0;
-        bool reloaded = true;
-        GameObject bullet;
-
+        public float reloadTime = 2;
+        float reloadTimeReset;
 
         // Start is called before the first frame update
         void Start()
         {
-            reloadTimerReset = reloadTimer;
+            reloadTimeReset = reloadTime;                  
             FindComponents();
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (MasterSingleton.Instance.BulletManager.bulletPool == null) return;
-            bulletManager.bulletPool.LoadInWeapon();
-            ManageReloadingTimer();
-            HandleWeapon();
-        }
+            CheckForSpearHitBox();
+            Attack();
 
-        void HandleWeapon()
-        {
-            if (inputManager.AttackInput)
+            if (Input.GetKey(KeyCode.R))
             {
-                if (bulletsInChamber < chamberCapacity) ReloadWeapon();
-                else if (bulletsInChamber > 0) ShootWeapon();
+                MasterSingleton.Instance.SpearPool.RetrieveItems(gameObject);
             }
         }
 
-        void ReloadWeapon()
-        {     
-            if (reloaded)
-            {
-                bulletManager.bulletPool.GetBullet(gameObject);
-                reloaded = false;
-                bulletsInChamber++;   
-            }
+        public void LoseChamberAmmo()
+        {
+            chamberAmmo -= 1;
         }
 
-        void ManageReloadingTimer()
+        public void ToggleHitBox(bool on)
         {
-            if (reloaded == false && bulletsInChamber == 0)
-            {
-                reloadTimer -= Time.deltaTime;
+            if (on) hitBox.enabled = true;
+            else hitBox.enabled = false;
+        }
 
-                if(reloadTimer <= 0)
+        void Attack()
+        {
+            if (chamberAmmo == 1)
+            {
+                Debug.Log("CanAttack");
+                // Hitboc is on weapon. Animation will play well activating hit box
+                AnimatorStateInfo stateInfo = weaponAnimator.GetCurrentAnimatorStateInfo(0);
+                // Chacks if animation is done playing
+                if (stateInfo.IsName("AttackAnimation") && stateInfo.normalizedTime >= 1.0f)
                 {
-                    reloadTimer = reloadTimerReset;
-                    reloaded = true;
+                    weaponAnimator.SetBool("isAttacking", false);
+                    ToggleHitBox(false);
+                }
+                else
+                {
+                    if (inputManager.AttackInput)
+                    {
+                        weaponAnimator.SetBool("isAttacking", true);
+                        ToggleHitBox(true);
+                    }
                 }
             }
+            else Reload();
+        }
 
-            if (reloaded)
+        void Reload()
+        {
+            //Debug.Log("Reloading");
+            weaponAnimator.SetBool("isAttacking", false);
+            reloadTime -= Time.deltaTime;
+            if (reloadTime <= 0) 
             {
-                bulletManager.bulletPool.SetBulletActives();
+                MasterSingleton.Instance.SpearPool.GetItem(this.gameObject);
+                reloadTime = reloadTimeReset;
+                chamberAmmo = 1;
             }
         }
 
-        void ShootWeapon()
+
+        void CheckForSpearHitBox()
         {
-            bulletsInChamber--;
+            if (gameObject.transform.childCount < 0) return;
+            if (transform.GetChild(0).gameObject.activeSelf == true)
+            {
+                hitBox = transform.GetChild(0).GetChild(0).GetComponent<BoxCollider>(); // Get spear's box collider 
+                //Debug.Log(hitBox);
+            }
         }
 
         void FindComponents()
         {
-            bulletManager = MasterSingleton.Instance.BulletManager;
             inputManager = MasterSingleton.Instance.InputManager;
         }
     }

@@ -19,7 +19,7 @@ namespace SwordfishGame
             if (Deactivate()) gameObject.GetComponent<Rigidbody>().useGravity = true;
         }
 
-        bool Deactivate()
+        public bool Deactivate()
         {
             if (isAlive) return false;
             else return true;
