@@ -52,7 +52,7 @@ namespace SwordfishGame
         {
             if (chamberAmmo == 1)
             {
-                Debug.Log("CanAttack");
+                //Debug.Log("CanAttack");
                 // Hitboc is on weapon. Animation will play well activating hit box
                 AnimatorStateInfo stateInfo = weaponAnimator.GetCurrentAnimatorStateInfo(0);
                 // Chacks if animation is done playing
