@@ -89,8 +89,8 @@ namespace SwordfishGame
 
         void CheckForSpearHitBox()
         {
-            if (gameObject.transform.childCount < 0) return;
-            if (transform.GetChild(0).gameObject.activeSelf == true)
+            if (gameObject.transform.childCount < 0 || gameObject.transform.GetChild(0).gameObject.activeSelf == false) return;          
+            if (transform.GetChild(0).gameObject.activeSelf == true) // Looks for first harpoon in children
             {
                 hitBox = transform.GetChild(0).GetChild(0).GetComponent<BoxCollider>(); // Get spear's box collider 
                 //Debug.Log(hitBox);

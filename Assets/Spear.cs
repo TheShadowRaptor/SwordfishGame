@@ -23,7 +23,8 @@ namespace SwordfishGame
         {
             this.gameObject.transform.parent = gameObject.transform;
             Vector3 scale = this.gameObject.transform.localScale;
-            scale = new Vector3(0.02f, 0.02f, 2);
+            // Size that works with present model
+            scale = new Vector3(1, 1, 1);
             this.gameObject.transform.localScale = scale;
         }
 

@@ -532,7 +532,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 430544768}
-  - component: {fileID: 430544769}
   - component: {fileID: 430544772}
   - component: {fileID: 430544774}
   - component: {fileID: 430544773}
@@ -553,25 +552,12 @@ Transform:
   m_GameObject: {fileID: 430544767}
   m_LocalRotation: {x: -0, y: 0.5827691, z: -0, w: 0.81263787}
   m_LocalPosition: {x: -0.199, y: -0.317, z: 0.67}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1534394560}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 71.291, z: 0}
---- !u!65 &430544769
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 430544767}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.0334635, z: 1.0147713}
-  m_Center: {x: -0.00000033527348, y: -0.0035429, z: 0.00044828653}
 --- !u!114 &430544772
 MonoBehaviour:
   m_ObjectHideFlags: 0
