@@ -13,7 +13,6 @@ namespace SwordfishGame
         public float airDrag = 0;
         public float airAnglerDrag = 0.05f;
         public float floatingPower = 15;
-        public float waterHeight = 0f;
 
         Rigidbody rb;
         OceanManager oceanManager;
@@ -31,10 +30,11 @@ namespace SwordfishGame
         // Update is called once per frame
         void FixedUpdate()
         {
+            if (MasterSingleton.Instance.GameManager.gameState != GameManager.GameState.gameplay) return;
             floatersUnderwater = 0;
             for (int i = 0; i < floaters.Length; i++)
             {
-                float difference = floaters[i].transform.position.y - waterHeight;
+                float difference = floaters[i].transform.position.y - oceanManager.WaterHeightAtPosition(floaters[i].position);
 
                 if (difference < 0)
                 {
@@ -47,14 +47,14 @@ namespace SwordfishGame
                     }
                 }
             }
-        
+
             if (underWater && floatersUnderwater == 0)
             {
                 underWater = false;
                 SwitchState(false);
             }
 
-        
+
 
             void SwitchState(bool isUnderWater)
             {
@@ -71,5 +71,4 @@ namespace SwordfishGame
             }
         }
     }
-
 }

@@ -6,31 +6,52 @@ namespace SwordfishGame
 {
     public class OceanManager : MonoBehaviour
     {
-        public float waterHeight;
-        public float waterSpeed;
-        public float waterNoise;
-
+        public float wavesFrequency = 0.001f;
+        public float wavesSpeed = 0.001f;
+        public float wavesHeight = 4;
         public GameObject ocean;
-        public Material oceanMat;
 
-        public Vector4[] vertexPositions;
+        public Material oceanMat;
+        Texture2D wavesDisplacement;
 
         // Start is called before the first frame update
         void Start()
         {
-            waterHeight = oceanMat.GetFloat("_WaterHeight");
-            waterSpeed = oceanMat.GetFloat("_WaterSpeed");
-            waterNoise = oceanMat.GetFloat("_WaterNoise");    
+            SetVariables();
+        }
+
+        void SetVariables()
+        {
+            oceanMat = ocean.GetComponent<Renderer>().sharedMaterial;
+            wavesDisplacement = (Texture2D)oceanMat.GetTexture("_WavesDisplacment");
+
         }
 
         // Update is called once per frame
         void Update()
         {
-            oceanMat.SetFloat("_WaterHeight", waterHeight);
-            oceanMat.SetFloat("_WaterSpeed", waterSpeed);
-            oceanMat.SetFloat("_WaterNoise", waterNoise);
+            if (MasterSingleton.Instance.GameManager.gameState == GameManager.GameState.mainmenu) ocean.GetComponent<MeshRenderer>().enabled = false;
+            else ocean.GetComponent<MeshRenderer>().enabled = true;
+        }
 
-            vertexPositions = oceanMat.GetVectorArray("_VertexPosition");
+        public float WaterHeightAtPosition(Vector3 position)
+        {
+            return ocean.transform.position.y + wavesDisplacement.GetPixelBilinear(position.x * wavesFrequency * ocean.transform.localScale.x, position.z * wavesFrequency + Time.time * wavesSpeed).g * wavesHeight;
+        }
+
+        private void OnValidate()
+        {
+            if (!oceanMat)
+                SetVariables();
+
+            UpdateMaterial();
+        }
+
+        void UpdateMaterial()
+        {
+            oceanMat.SetFloat("_WavesFrequency", wavesFrequency);
+            oceanMat.SetFloat("_WavesSpeed", wavesSpeed);
+            oceanMat.SetFloat("_WavesHeight", wavesHeight);
         }
     }
 }

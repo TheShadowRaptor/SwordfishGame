@@ -136,7 +136,7 @@ Material:
     - _SwirlStrength: 2
     - _WaterAlpha: 0.9
     - _WaterDepth: 1
-    - _WaterHeight: 0
+    - _WaterHeight: 0.5
     - _WaterNoiseScale: 0.34
     - _WaterSpeed: 1
     - _WaveFequency: 1

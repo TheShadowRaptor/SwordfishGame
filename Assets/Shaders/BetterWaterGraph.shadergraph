@@ -32,6 +32,9 @@
         },
         {
             "m_Id": "79fcad059926485d8366ce6649aa4aa7"
+        },
+        {
+            "m_Id": "8944d88ed365479292ffc286b928c39f"
         }
     ],
     "m_Keywords": [],
@@ -200,6 +203,9 @@
         },
         {
             "m_Id": "8127f023ff68422497162caf96e55420"
+        },
+        {
+            "m_Id": "e149e29ec5be418fb528d0de45e11b5e"
         }
     ],
     "m_GroupDatas": [],
@@ -796,6 +802,20 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
+                    "m_Id": "e149e29ec5be418fb528d0de45e11b5e"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "5c33fa41d450476aa452ca1cabf0322f"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
                     "m_Id": "e54043535c304f138413b5248790592c"
                 },
                 "m_SlotId": 0
@@ -1206,10 +1226,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2887.0,
-            "y": -955.0,
-            "width": 155.999755859375,
-            "height": 33.99993896484375
+            "x": -2808.999755859375,
+            "y": -1221.0,
+            "width": 156.0,
+            "height": 34.0001220703125
         }
     },
     "m_Slots": [
@@ -2077,9 +2097,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -746.0000610351563,
-            "y": -786.0000610351563,
-            "width": 130.0,
+            "x": -500.9999084472656,
+            "y": -785.0,
+            "width": 129.99996948242188,
             "height": 118.0
         }
     },
@@ -2114,10 +2134,10 @@
     "m_Guid": {
         "m_GuidSerialized": "c1532d30-5020-4a53-a249-bb88436a53fd"
     },
-    "m_Name": "WaveDisplacment",
+    "m_Name": "WavesDisplacment",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "WaveDisplacment",
-    "m_DefaultReferenceName": "_WaveDisplacment",
+    "m_RefNameGeneratedByDisplayName": "WavesDisplacment",
+    "m_DefaultReferenceName": "_WavesDisplacment",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -3058,10 +3078,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2327.0,
-            "y": -803.0,
+            "x": -2530.0,
+            "y": -1058.0,
             "width": 178.0,
-            "height": 33.99993896484375
+            "height": 34.00006103515625
         }
     },
     "m_Slots": [
@@ -3585,7 +3605,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Texture2DMaterialSlot",
     "m_ObjectId": "79be4b9a76be4cb283b646908fa61b1f",
     "m_Id": 0,
-    "m_DisplayName": "WaveDisplacment",
+    "m_DisplayName": "WavesDisplacment",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -3600,10 +3620,10 @@
     "m_Guid": {
         "m_GuidSerialized": "a7b5d26b-d170-4d53-87bf-c85cb65b2306"
     },
-    "m_Name": "WaveHeight",
+    "m_Name": "WavesHeight",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "WaveHeight",
-    "m_DefaultReferenceName": "_WaveHeight",
+    "m_RefNameGeneratedByDisplayName": "WavesHeight",
+    "m_DefaultReferenceName": "_WavesHeight",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -3612,7 +3632,7 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 0.0,
+    "m_Value": 1.0,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
@@ -3627,10 +3647,10 @@
     "m_Guid": {
         "m_GuidSerialized": "136bfeae-4f98-4b4b-b905-e3ffddc1a409"
     },
-    "m_Name": "WaveFequency",
+    "m_Name": "WavesFrequency",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "WaveFequency",
-    "m_DefaultReferenceName": "_WaveFequency",
+    "m_RefNameGeneratedByDisplayName": "WavesFrequency",
+    "m_DefaultReferenceName": "_WavesFrequency",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -3682,6 +3702,9 @@
         },
         {
             "m_Id": "46a5ad298d2748f495be3bc21c5937cb"
+        },
+        {
+            "m_Id": "8944d88ed365479292ffc286b928c39f"
         }
     ]
 }
@@ -3877,11 +3900,26 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Y",
     "m_StageCapability": 3,
-    "m_Value": 0.0,
+    "m_Value": 1.0,
     "m_DefaultValue": 0.0,
     "m_Labels": [
         "Y"
     ]
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "878eda3d73f5431fbcf1032455fb2c9b",
+    "m_Id": 0,
+    "m_DisplayName": "Smoothness",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
 }
 
 {
@@ -3982,6 +4020,33 @@
         "e31": 0.0,
         "e32": 0.0,
         "e33": 1.0
+    }
+}
+
+{
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "8944d88ed365479292ffc286b928c39f",
+    "m_Guid": {
+        "m_GuidSerialized": "b98af8fd-32a6-4264-9fe9-58c91c3240fb"
+    },
+    "m_Name": "Smoothness",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Smoothness",
+    "m_DefaultReferenceName": "_Smoothness",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 0.5,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
     }
 }
 
@@ -4103,7 +4168,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "92fa4a1bb7c04d4a8ae08651594fdb50",
     "m_Id": 0,
-    "m_DisplayName": "WaveFequency",
+    "m_DisplayName": "WavesFrequency",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -4631,10 +4696,10 @@
     "m_Guid": {
         "m_GuidSerialized": "ae5a4b41-dd1c-4088-8878-9a47c3458874"
     },
-    "m_Name": "WaveSpeed",
+    "m_Name": "WavesSpeed",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "WaveSpeed",
-    "m_DefaultReferenceName": "_WaveSpeed",
+    "m_RefNameGeneratedByDisplayName": "WavesSpeed",
+    "m_DefaultReferenceName": "_WavesSpeed",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -5013,7 +5078,7 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     },
-    "m_Space": 2,
+    "m_Space": 4,
     "m_PositionSource": 0
 }
 
@@ -5237,7 +5302,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "cbcbdbe83054488b8eb52a53aadd448d",
     "m_Id": 0,
-    "m_DisplayName": "WaveHeight",
+    "m_DisplayName": "WavesHeight",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -5606,7 +5671,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "df8510262df048ca9d7d58caa721ccd6",
     "m_Id": 0,
-    "m_DisplayName": "WaveSpeed",
+    "m_DisplayName": "WavesSpeed",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -5650,6 +5715,41 @@
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
+    }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "e149e29ec5be418fb528d0de45e11b5e",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -285.0,
+            "y": 355.0000305175781,
+            "width": 139.99998474121095,
+            "height": 33.999969482421878
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "878eda3d73f5431fbcf1032455fb2c9b"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "8944d88ed365479292ffc286b928c39f"
     }
 }
 

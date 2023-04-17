@@ -14,22 +14,22 @@ namespace SwordfishGame
         private LevelManager levelManager;
         private UIManager uIManager;
         private InputManager inputManager;
-        private OceanManager oceanManager;
         private PlayerStats playerStats;
         private PlayerController playerController;
         private WeaponController weaponController;
         private SpearPool spearPool;
+        private OceanManager oceanManager;
 
         // SingletonObjects Gets/Sets
         public GameManager GameManager { get => gameManager; }
         public LevelManager LevelManager { get => levelManager; }
         public UIManager UIManager { get => uIManager; }
         public InputManager InputManager { get => inputManager; }
-        public OceanManager OceanManager { get => oceanManager; }
         public PlayerStats PlayerStats { get => playerStats; }
         public PlayerController PlayerController { get => playerController; }
         public WeaponController WeaponController { get => weaponController; }
         public SpearPool SpearPool { get => spearPool; }
+        public OceanManager OceanManager { get => oceanManager; }
 
         // Awake is called when object is first initialized
         void Awake()
@@ -51,11 +51,11 @@ namespace SwordfishGame
             levelManager = GetComponentInChildren<LevelManager>();
             uIManager = GetComponentInChildren<UIManager>();
             inputManager = GetComponentInChildren<InputManager>();
-            oceanManager = GetComponentInChildren<OceanManager>();
             playerStats = GetComponentInChildren<PlayerStats>();
             playerController = GetComponentInChildren<PlayerController>();
             weaponController = GetComponentInChildren<WeaponController>();
             spearPool = GetComponentInChildren<SpearPool>();
+            oceanManager = GetComponentInChildren<OceanManager>();
         }
     }
 }
