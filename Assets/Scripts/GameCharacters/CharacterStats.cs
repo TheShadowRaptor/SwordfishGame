@@ -10,7 +10,7 @@ namespace SwordfishGame
         [SerializeField] protected int health;
         [SerializeField] protected float movementSpeed;
 
-        protected bool isAlive;
+        public bool isAlive;
 
         // Gets/Sets
         public float MovementSpeed { get => movementSpeed; }

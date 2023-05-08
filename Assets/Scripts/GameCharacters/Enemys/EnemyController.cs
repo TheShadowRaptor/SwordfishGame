@@ -11,9 +11,12 @@ namespace SwordfishGame
 
 
         [Header("Patrol Settings")]
-        [SerializeField] protected List<GameObject> targets = new List<GameObject>();
-        protected GameObject currentTarget;
+        public List<GameObject> targets = new List<GameObject>();
+        protected GameObject target;
         protected int nextTarget = 0;
+
+        // Targets selected for the next enemy to use
+        List<GameObject> selectedTargets = new List<GameObject>();
 
         enum EnemyStates
         {
@@ -47,31 +50,33 @@ namespace SwordfishGame
             }
         }
 
-        void Swim()
+        private void Swim()
         {
-            ChooseNextTarget();
+            if (target == null)
+            {
+                ChooseTarget();
+                return;
+            }
 
-            // Rotation Calculation
-            Quaternion targetRotation = Quaternion.LookRotation(currentTarget.transform.position - transform.position);
+            // Rotate towards target
+            Vector3 targetDirection = target.transform.position - transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, stats.TurnSpeed * Time.deltaTime);
 
-            // Position Calculation
-            // Subtracting Y from vectors
-            Vector3 gameObjectPos = gameObject.transform.position;
-            Vector3 targetObjectPos = currentTarget.transform.position;
+            // Move towards target
+            transform.position += transform.forward * stats.MovementSpeed * Time.deltaTime;
 
-            gameObjectPos.y = 0;
-            targetObjectPos.y = 0;
-
-            float targetDist = Vector3.Distance(gameObjectPos, targetObjectPos);
-
-            if (targetDist > 2) transform.Translate(Vector3.forward * stats.MovementSpeed * Time.deltaTime);
-            else nextTarget++;
+            // Check if we've reached the target
+            if (Vector3.Distance(transform.position, target.transform.position) < 1f)
+            {
+                ChooseTarget();
+            }
         }
+        
 
-        void ChooseNextTarget()
+        void ChooseTarget()
         {
-            if (nextTarget < targets.Count) currentTarget = targets[nextTarget];
+            if (nextTarget < targets.Count) target = targets[nextTarget];
             else nextTarget = targets.Count;
         }
 

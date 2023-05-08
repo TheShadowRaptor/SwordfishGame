@@ -12,6 +12,7 @@ namespace SwordfishGame
         [Header("SingletonObjects")]
         private GameManager gameManager;
         private LevelManager levelManager;
+        private EnemyManager enemyManager;
         private UIManager uIManager;
         private InputManager inputManager;
         private PlayerStats playerStats;
@@ -23,6 +24,7 @@ namespace SwordfishGame
         // SingletonObjects Gets/Sets
         public GameManager GameManager { get => gameManager; }
         public LevelManager LevelManager { get => levelManager; }
+        public EnemyManager EnemyManager { get => enemyManager; }
         public UIManager UIManager { get => uIManager; }
         public InputManager InputManager { get => inputManager; }
         public PlayerStats PlayerStats { get => playerStats; }
@@ -49,6 +51,7 @@ namespace SwordfishGame
             // Find child gameobjects
             gameManager = GetComponentInChildren<GameManager>();
             levelManager = GetComponentInChildren<LevelManager>();
+            enemyManager = GetComponentInChildren<EnemyManager>();
             uIManager = GetComponentInChildren<UIManager>();
             inputManager = GetComponentInChildren<InputManager>();
             playerStats = GetComponentInChildren<PlayerStats>();

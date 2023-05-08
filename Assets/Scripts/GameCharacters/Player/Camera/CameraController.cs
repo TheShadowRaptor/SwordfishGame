@@ -22,6 +22,10 @@ namespace SwordfishGame
         // Update is called once per frame
         void Update()
         {
+            
+        }
+        private void LateUpdate()
+        {
             xRotation -= inputManager.MouseY;
             xRotation = Mathf.Clamp(xRotation, -90f, playerStats.MinViewDistance);
 

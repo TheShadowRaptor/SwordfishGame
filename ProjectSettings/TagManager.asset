@@ -8,6 +8,7 @@ TagManager:
   - Terrain
   - Ship
   - HitBox
+  - Target
   layers:
   - Default
   - TransparentFX
