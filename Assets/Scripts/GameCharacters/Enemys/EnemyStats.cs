@@ -14,10 +14,6 @@ namespace SwordfishGame
         public GameObject _buoy;
 
         // Start is called before the first frame update
-        void Start()
-        {
-            isAlive = true;
-        }
 
         // Update is called once per frame
         void Update()
@@ -31,15 +27,31 @@ namespace SwordfishGame
                 {
                     GameObject buoy = Instantiate(_buoy,transform.position,Quaternion.identity);
                     Buoys.buoys.Add(buoy);
+                    gameObject.GetComponent<Rigidbody>().useGravity = false;
+                    GameObject spear = gameObject.transform.GetChild(1).gameObject;
+                    spear.GetComponent<Spear>();
+                    Destroy(gameObject.transform.GetChild(1));
+                    
                     this.gameObject.SetActive(false);
                 }
             }
+        }
+
+        public void Spawn()
+        {
+            health = initHeath;
+            isAlive = true;
         }
 
         public bool Deactivate()
         {
             if (isAlive) return false;
             else return true;
+        }
+
+        public void InitStats(int health)
+        {
+            initHeath = health;
         }
     }
 }

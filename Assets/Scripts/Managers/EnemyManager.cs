@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -23,6 +24,11 @@ namespace SwordfishGame
 
         private int waveIndex = 0;
         private int enemiesSpawned = 0;
+
+        private bool rightWaveActivated;
+        private bool leftWaveActivated;
+
+        bool spawnWaveOnRight;
 
         public List<GameObject> SelectedEnemyTargets { get => selectedEnemyTargets; }
 
@@ -74,7 +80,8 @@ namespace SwordfishGame
 
                     // Reinitialize spawn queue for new wave
                     for (int i = 0; i < waveEnemyCount[waveIndex]; i++)
-                    {
+                    {                       
+                        spawnWaveOnRight = Random.value > 0.5f;
                         spawnQueue.Enqueue(wave[waveIndex]);
                     }
                 }
@@ -90,7 +97,8 @@ namespace SwordfishGame
                 GameObject enemy = GetNextEnemyFromPool();
                 enemy.transform.position = GetSpawnPosition();
                 enemy.GetComponent<EnemyController>().targets = SetTargets();
-                enemy.GetComponent<EnemyStats>().isAlive = true;
+                enemy.GetComponent<EnemyStats>().InitStats(1);
+                enemy.GetComponent<EnemyStats>().Spawn();
                 enemy.SetActive(true);
                 enemiesSpawned++;
 
@@ -119,16 +127,21 @@ namespace SwordfishGame
 
         private Vector3 GetSpawnPosition()
         {
-            if (enemiesSpawned == 0)
+            if (enemiesSpawned != 0)
             {
-                bool spawnOnRight = Random.value > 0.5f;
-                if (spawnOnRight)
+                int rightLocation;
+                int leftLocation;
+                if (spawnWaveOnRight)
                 {
-                    spawnPosition = new Vector3(transform.position.x + 10, transform.position.y, transform.position.z + 80);
+                    rightLocation = Random.Range(7, 10);
+                    spawnPosition = new Vector3(transform.position.x + rightLocation, transform.position.y, transform.position.z + 80);
+                    Debug.Log($"rightLocation | {rightLocation}");
                 }
                 else
                 {
-                    spawnPosition = new Vector3(transform.position.x - 10, transform.position.y, transform.position.z + 80);
+                    leftLocation = Random.Range(7, 10);
+                    spawnPosition = new Vector3(transform.position.x - leftLocation, transform.position.y, transform.position.z + 80);
+                    Debug.Log($"LeftLocation | {leftLocation}");
                 }
             }
 

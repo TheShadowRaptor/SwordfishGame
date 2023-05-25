@@ -12,6 +12,8 @@ namespace SwordfishGame
 
         public bool isAlive;
 
+        protected int initHeath;
+
         // Gets/Sets
         public float MovementSpeed { get => movementSpeed; }
 
