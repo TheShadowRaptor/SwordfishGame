@@ -7,11 +7,14 @@ namespace SwordfishGame
 {
     public class EnemyStats : CharacterStats
     {
-        [SerializeField] protected float turnSpeed;
-        private float deathTimer = 1.5f;
         public float TurnSpeed { get => turnSpeed; }
 
         public GameObject _buoy;
+        [SerializeField] protected float turnSpeed;
+        [SerializeField] protected EnemyController _enemyController;
+
+        private float deathTimer = 1.5f;
+        private float deathTimerReset = 1.5f;
 
         // Start is called before the first frame update
 
@@ -19,7 +22,7 @@ namespace SwordfishGame
         void Update()
         {
             CheckIfAlive();
-            if (Deactivate())
+            if (isAlive == false)
             {
                 gameObject.GetComponent<Rigidbody>().useGravity = true;
                 deathTimer -= Time.deltaTime;
@@ -28,9 +31,14 @@ namespace SwordfishGame
                     GameObject buoy = Instantiate(_buoy,transform.position,Quaternion.identity);
                     Buoys.buoys.Add(buoy);
                     gameObject.GetComponent<Rigidbody>().useGravity = false;
-                    GameObject spear = gameObject.transform.GetChild(1).gameObject;
-                    spear.GetComponent<Spear>();
-                    Destroy(gameObject.transform.GetChild(1));
+                    if (gameObject.transform.GetChild(1) != null)
+                    {
+                        GameObject spear = gameObject.transform.GetChild(1).gameObject;
+                        MasterSingleton.Instance.SpearPool.ParentSingleSpearToWeapon(MasterSingleton.Instance.WeaponController.gameObject, spear);
+                    }
+
+                    // Reset Timer
+                    deathTimer = deathTimerReset;
                     
                     this.gameObject.SetActive(false);
                 }
@@ -41,12 +49,7 @@ namespace SwordfishGame
         {
             health = initHeath;
             isAlive = true;
-        }
-
-        public bool Deactivate()
-        {
-            if (isAlive) return false;
-            else return true;
+            _enemyController.enemyState = EnemyController.EnemyStates.swimming;
         }
 
         public void InitStats(int health)

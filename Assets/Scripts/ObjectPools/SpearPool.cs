@@ -19,7 +19,7 @@ namespace SwordfishGame
                 spears.Add(spear);
                 spears[i].SetActive(false);
             }
-            ParentItems(MasterSingleton.Instance.WeaponController.gameObject);
+            ParentSpearsToWeapon(MasterSingleton.Instance.WeaponController.gameObject);
             spears[0].SetActive(true);
             spears[0].GetComponent<Spear>().ParentSpear(MasterSingleton.Instance.WeaponController.gameObject);
             spears[0].GetComponent<Spear>().OrintateSpear(MasterSingleton.Instance.WeaponController.gameObject);
@@ -31,12 +31,23 @@ namespace SwordfishGame
             
         }
 
-        public void ParentItems(GameObject weapon)
+        public void ParentSpearsToWeapon(GameObject weapon)
         {
             foreach (GameObject spear in spears)
             {
                 spear.transform.parent = weapon.transform;
+                spear.transform.position = weapon.transform.position;
+                spear.transform.rotation = weapon.transform.rotation;
+                spear.SetActive(false);
             }
+        }
+
+        public void ParentSingleSpearToWeapon(GameObject weapon, GameObject spear)
+        {
+            spear.transform.parent = weapon.transform;
+            spear.transform.position = weapon.transform.position;
+            spear.transform.rotation = weapon.transform.rotation;
+            spear.SetActive(false);
         }
 
         public void GetItem(GameObject weapon)
@@ -53,13 +64,13 @@ namespace SwordfishGame
             spears.Add(removedSpear);
         }
 
-        public void RetrieveItems(GameObject weapon)
+        public void RetrieveSpears(GameObject weapon)
         {
             for (int i = 0; i < spears.Count; i++)
             {
                 spears[i].SetActive(false);
             }
-            ParentItems(weapon);
+            ParentSpearsToWeapon(weapon);
             spears[0].GetComponent<Spear>().ParentSpear(weapon);
             spears[0].GetComponent<Spear>().OrintateSpear(weapon);
             spears[0].SetActive(true);

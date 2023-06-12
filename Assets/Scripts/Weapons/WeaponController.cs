@@ -33,7 +33,7 @@ namespace SwordfishGame
 
             if (Input.GetKey(KeyCode.R))
             {
-                MasterSingleton.Instance.SpearPool.RetrieveItems(gameObject);
+                MasterSingleton.Instance.SpearPool.RetrieveSpears(gameObject);
             }
         }
 

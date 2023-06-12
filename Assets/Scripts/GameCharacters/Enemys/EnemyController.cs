@@ -18,26 +18,26 @@ namespace SwordfishGame
         // Targets selected for the next enemy to use
         List<GameObject> selectedTargets = new List<GameObject>();
 
-        enum EnemyStates
+        public enum EnemyStates
         {
             swimming,
             attacking,
             dying
         }
-        EnemyStates enemyStates;
+        public EnemyStates enemyState;
 
         // Start is called before the first frame update
         void Start()
         {
             rb = GetComponent<Rigidbody>();
-            enemyStates = EnemyStates.swimming;
+            enemyState = EnemyStates.swimming;
         }
 
         // Update is called once per frame
         void Update()
         {          
-            if (stats.Deactivate()) enemyStates = EnemyStates.dying;
-            switch (enemyStates)
+            if (stats.isAlive == false) enemyState = EnemyStates.dying;
+            switch (enemyState)
             {
                 case EnemyStates.swimming:
                     Swim();
@@ -82,6 +82,7 @@ namespace SwordfishGame
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!stats.isAlive) return;
             if (other.gameObject.CompareTag("HitBox"))
             {
                 int damage = MasterSingleton.Instance.PlayerStats.Damage;

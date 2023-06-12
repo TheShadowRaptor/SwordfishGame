@@ -65,8 +65,9 @@ MonoBehaviour:
   health: 1
   movementSpeed: 8
   isAlive: 0
-  turnSpeed: 5
   _buoy: {fileID: 6798141175210607513, guid: bf789875a70dfc84bad86ea2363f13ae, type: 3}
+  turnSpeed: 5
+  _enemyController: {fileID: 3708059526371215149}
 --- !u!114 &3708059526371215149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,6 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 3708059526371215143}
   targets: []
+  enemyState: 0
 --- !u!54 &3708059526371215138
 Rigidbody:
   m_ObjectHideFlags: 0
