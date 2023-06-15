@@ -133,14 +133,14 @@ namespace SwordfishGame
                 int leftLocation;
                 if (spawnWaveOnRight)
                 {
-                    rightLocation = Random.Range(7, 10);
-                    spawnPosition = new Vector3(transform.position.x + rightLocation, transform.position.y, transform.position.z + 80);
+                    rightLocation = Random.Range(100, 200);
+                    spawnPosition = new Vector3(transform.position.x + rightLocation, transform.position.y, transform.position.z + 100);
                     Debug.Log($"rightLocation | {rightLocation}");
                 }
                 else
                 {
-                    leftLocation = Random.Range(7, 10);
-                    spawnPosition = new Vector3(transform.position.x - leftLocation, transform.position.y, transform.position.z + 80);
+                    leftLocation = Random.Range(100, 200);
+                    spawnPosition = new Vector3(transform.position.x - leftLocation, transform.position.y, transform.position.z + 100);
                     Debug.Log($"LeftLocation | {leftLocation}");
                 }
             }

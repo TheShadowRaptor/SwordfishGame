@@ -61,10 +61,19 @@ namespace SwordfishGame
             Cursor.lockState = CursorLockMode.Confined;
         }
 
+        public bool enableFog = true;
+        public Color fogColor = Color.gray;
+        public float fogDensity = 0.03f;
+        public FogMode fogMode = FogMode.Exponential;
         void ManageGameplayState()
         {
             Time.timeScale = 1;
             Cursor.lockState = CursorLockMode.Locked;
+
+            RenderSettings.fog = enableFog;
+            RenderSettings.fogColor = fogColor;
+            RenderSettings.fogDensity = fogDensity;
+            RenderSettings.fogMode = fogMode;
         }
 
         void ManagePausedState()
