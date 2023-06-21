@@ -31,11 +31,6 @@ namespace SwordfishGame
                     GameObject buoy = Instantiate(_buoy,transform.position,Quaternion.identity);
                     Buoys.buoys.Add(buoy);
                     gameObject.GetComponent<Rigidbody>().useGravity = false;
-                    if (gameObject.transform.GetChild(1) != null)
-                    {
-                        GameObject spear = gameObject.transform.GetChild(1).gameObject;
-                        MasterSingleton.Instance.SpearPool.ParentSingleSpearToWeapon(MasterSingleton.Instance.WeaponController.gameObject, spear);
-                    }
 
                     // Reset Timer
                     deathTimer = deathTimerReset;

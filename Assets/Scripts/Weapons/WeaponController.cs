@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace SwordfishGame
 {
@@ -11,9 +12,9 @@ namespace SwordfishGame
 
         [Header("Components")]
         [SerializeField] protected Animator weaponAnimator;
-        [SerializeField] protected BoxCollider hitBox;
+        [SerializeField] protected GameObject harpoonTip;
 
-        protected int chamberAmmo = 1;
+        public bool tipLoaded = true;
 
         public float reloadTime = 2;
         float reloadTimeReset;
@@ -28,29 +29,13 @@ namespace SwordfishGame
         // Update is called once per frame
         void Update()
         {
-            CheckForSpearHitBox();
             Attack();
-
-            if (Input.GetKey(KeyCode.R))
-            {
-                MasterSingleton.Instance.SpearPool.RetrieveSpears(gameObject);
-            }
-        }
-
-        public void LoseChamberAmmo()
-        {
-            chamberAmmo -= 1;
-        }
-
-        public void ToggleHitBox(bool on)
-        {
-            if (on) hitBox.enabled = true;
-            else hitBox.enabled = false;
+            DeactivateHarpoonTip();
         }
 
         void Attack()
         {
-            if (chamberAmmo == 1)
+            if (tipLoaded)
             {
                 //Debug.Log("CanAttack");
                 // Hitboc is on weapon. Animation will play well activating hit box
@@ -59,14 +44,12 @@ namespace SwordfishGame
                 if (stateInfo.IsName("AttackAnimation") && stateInfo.normalizedTime >= 1.0f)
                 {
                     weaponAnimator.SetBool("isAttacking", false);
-                    ToggleHitBox(false);
                 }
                 else
                 {
                     if (inputManager.AttackInput)
                     {
                         weaponAnimator.SetBool("isAttacking", true);
-                        ToggleHitBox(true);
                     }
                 }
             }
@@ -80,26 +63,27 @@ namespace SwordfishGame
             reloadTime -= Time.deltaTime;
             if (reloadTime <= 0) 
             {
-                MasterSingleton.Instance.SpearPool.GetItem(this.gameObject);
                 reloadTime = reloadTimeReset;
-                chamberAmmo = 1;
-            }
-        }
-
-
-        void CheckForSpearHitBox()
-        {
-            if (gameObject.transform.childCount < 0 || gameObject.transform.GetChild(0).gameObject.activeSelf == false) return;          
-            if (transform.GetChild(0).gameObject.activeSelf == true) // Looks for first harpoon in children
-            {
-                hitBox = transform.GetChild(0).GetChild(0).GetComponent<BoxCollider>(); // Get spear's box collider 
-                //Debug.Log(hitBox);
+                tipLoaded = true;
             }
         }
 
         void FindComponents()
         {
             inputManager = MasterSingleton.Instance.InputManager;
+        }
+
+        void DeactivateHarpoonTip()
+        {
+            harpoonTip.gameObject.SetActive(tipLoaded);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                tipLoaded = false;
+            }
         }
     }
 }

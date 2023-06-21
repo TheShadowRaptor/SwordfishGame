@@ -18,7 +18,6 @@ namespace SwordfishGame
         private PlayerStats playerStats;
         private PlayerController playerController;
         private WeaponController weaponController;
-        private SpearPool spearPool;
         private OceanManager oceanManager;
 
         // SingletonObjects Gets/Sets
@@ -30,7 +29,6 @@ namespace SwordfishGame
         public PlayerStats PlayerStats { get => playerStats; }
         public PlayerController PlayerController { get => playerController; }
         public WeaponController WeaponController { get => weaponController; }
-        public SpearPool SpearPool { get => spearPool; }
         public OceanManager OceanManager { get => oceanManager; }
 
         // Awake is called when object is first initialized
@@ -57,7 +55,6 @@ namespace SwordfishGame
             playerStats = GetComponentInChildren<PlayerStats>();
             playerController = GetComponentInChildren<PlayerController>();
             weaponController = GetComponentInChildren<WeaponController>();
-            spearPool = GetComponentInChildren<SpearPool>();
             oceanManager = GetComponentInChildren<OceanManager>();
         }
     }

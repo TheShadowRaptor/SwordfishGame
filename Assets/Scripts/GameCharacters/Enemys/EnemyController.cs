@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace SwordfishGame
 {
@@ -9,11 +8,10 @@ namespace SwordfishGame
         Rigidbody rb;
         [SerializeField] protected EnemyStats stats;
 
-
         [Header("Patrol Settings")]
-        public List<GameObject> targets = new List<GameObject>();
-        protected GameObject target;
+        public GameObject target;
         protected int nextTarget = 0;
+        bool willJump = false;
 
         // Targets selected for the next enemy to use
         List<GameObject> selectedTargets = new List<GameObject>();
@@ -25,6 +23,16 @@ namespace SwordfishGame
             dying
         }
         public EnemyStates enemyState;
+
+        private void OnEnable()
+        {
+            EnemyManager.enemyAliveCounter += 1;
+        }
+
+        private void OnDisable()
+        {
+            EnemyManager.enemyAliveCounter -= 1;
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -54,7 +62,6 @@ namespace SwordfishGame
         {
             if (target == null)
             {
-                ChooseTarget();
                 return;
             }
 
@@ -69,24 +76,18 @@ namespace SwordfishGame
             // Check if we've reached the target
             if (Vector3.Distance(transform.position, target.transform.position) < 1f)
             {
-                ChooseTarget();
+                
             }
-        }
-        
-
-        void ChooseTarget()
-        {
-            if (nextTarget < targets.Count) target = targets[nextTarget];
-            else nextTarget = targets.Count;
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (!stats.isAlive) return;
-            if (other.gameObject.CompareTag("HitBox"))
+            if (other.gameObject.CompareTag("Harpoon"))
             {
                 int damage = MasterSingleton.Instance.PlayerStats.Damage;
                 stats.TakeDamage(damage);
+                other.gameObject.GetComponent<WeaponController>().tipLoaded = false;
                 // HitBox script also has an onTrigger checking for enemy
                 //Debug.Log("damage");
             }

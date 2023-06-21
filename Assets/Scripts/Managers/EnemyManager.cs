@@ -1,36 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
+
 
 namespace SwordfishGame
 {
     public class EnemyManager : MonoBehaviour
     {
-        public List<int> wave = new List<int>();
-        public List<int> waveEnemyCount = new List<int>();
+        public static int enemyAliveCounter;
 
-        private List<GameObject> selectedEnemyTargets = new List<GameObject>();
+        public int wave;
+        public int waveCounter;
+        public int waveEnemyCount;
 
         public int enemyPoolSize = 10;
         public GameObject enemyPrefab;
 
         private List<GameObject> enemyPool;
-        private Queue<int> spawnQueue;
 
         public float spawnInterval = 1.0f;
         public int enemiesPerWave = 10;
 
-        private int waveIndex = 0;
-        private int enemiesSpawned = 0;
+        public int enemiesSpawned = 0;
 
-        private bool rightWaveActivated;
-        private bool leftWaveActivated;
-
-        bool spawnWaveOnRight;
-
-        public List<GameObject> SelectedEnemyTargets { get => selectedEnemyTargets; }
+        public bool spawnWaveOnRight;
 
         void Start()
         {
@@ -42,66 +35,53 @@ namespace SwordfishGame
                 enemy.transform.parent = this.transform;
                 enemy.SetActive(false);
                 enemyPool.Add(enemy);
-            }
-
-            // Initialize spawn queue
-            spawnQueue = new Queue<int>();
-            for (int i = 0; i < wave.Count; i++)
-            {
-                for (int j = 0; j < waveEnemyCount[i]; j++)
-                {
-                    spawnQueue.Enqueue(wave[i]);
-                }
-            }          
+            } 
         }
 
-        private void Update()
+        private bool sideChosen = false;
+
+        [ContextMenu("SpawnWave")]
+        public void SpawnEnemyWave()
         {
             if (MasterSingleton.Instance.GameManager.gameState != GameManager.GameState.gameplay) return;
 
-            if (enemiesSpawned == 0)
-            {
-                // Start enemy spawning coroutine
-                StartCoroutine(SpawnEnemies());
-            }
+            waveCounter++;
+            // Start enemy spawning coroutine
+            StartCoroutine(SpawnEnemies());
+        }
+
+        void EndEnemyWave()
+        {
+            StopCoroutine(SpawnEnemies());
         }
 
         IEnumerator SpawnEnemies()
         {
             while (true)
             {
-                // Check if wave is complete
-                if (enemiesSpawned >= enemiesPerWave)
+                if (!sideChosen)
                 {
-                    // Wait for next wave
-                    yield return new WaitForSeconds(spawnInterval * 5);
-                    enemiesSpawned = 0;
-                    spawnQueue.Clear();
-
-                    // Reinitialize spawn queue for new wave
-                    for (int i = 0; i < waveEnemyCount[waveIndex]; i++)
-                    {                       
-                        spawnWaveOnRight = Random.value > 0.5f;
-                        spawnQueue.Enqueue(wave[waveIndex]);
-                    }
-                }
-
-                // Check if there are enemies left to spawn
-                if (spawnQueue.Count == 0)
-                {
-                    yield return new WaitForSeconds(spawnInterval);
-                    continue;
+                    spawnWaveOnRight = Random.value > 0.5f;
+                    sideChosen = true;
                 }
 
                 // Spawn next enemy from object pool
                 GameObject enemy = GetNextEnemyFromPool();
                 enemy.transform.position = GetSpawnPosition();
-                enemy.GetComponent<EnemyController>().targets = SetTargets();
+                enemy.GetComponent<EnemyController>().target = SetTargets();
                 enemy.GetComponent<EnemyStats>().InitStats(1);
                 enemy.GetComponent<EnemyStats>().Spawn();
                 enemy.SetActive(true);
                 enemiesSpawned++;
 
+                if (enemiesSpawned >= enemiesPerWave)
+                {
+                    enemiesSpawned = 0;
+                    sideChosen = false;
+                    EndEnemyWave();
+                    break;
+                }
+                Debug.Log("EnemySpawned");
                 // Wait for next spawn interval
                 yield return new WaitForSeconds(Random.Range(spawnInterval, spawnInterval * 2));
             }
@@ -127,32 +107,43 @@ namespace SwordfishGame
 
         private Vector3 GetSpawnPosition()
         {
-            if (enemiesSpawned != 0)
+            int rightLocation;
+            int leftLocation;
+            if (spawnWaveOnRight)
             {
-                int rightLocation;
-                int leftLocation;
-                if (spawnWaveOnRight)
-                {
-                    rightLocation = Random.Range(100, 200);
-                    spawnPosition = new Vector3(transform.position.x + rightLocation, transform.position.y, transform.position.z + 100);
-                    Debug.Log($"rightLocation | {rightLocation}");
-                }
-                else
-                {
-                    leftLocation = Random.Range(100, 200);
-                    spawnPosition = new Vector3(transform.position.x - leftLocation, transform.position.y, transform.position.z + 100);
-                    Debug.Log($"LeftLocation | {leftLocation}");
-                }
+                rightLocation = Random.Range(100, 200);
+                spawnPosition = new Vector3(transform.position.x + rightLocation, transform.position.y, transform.position.z + 100);
+                Debug.Log($"rightLocation | {rightLocation}");
+            }
+            else
+            {
+                leftLocation = Random.Range(100, 200);
+                spawnPosition = new Vector3(transform.position.x - leftLocation, transform.position.y, transform.position.z + 100);
+                Debug.Log($"LeftLocation | {leftLocation}");
             }
 
             return spawnPosition;
         }
 
-        private List<GameObject> SetTargets()
+        private GameObject SetTargets()
         {
-            if (spawnPosition.x > 0) selectedEnemyTargets = EnemyTarget.rightTargets;
-            else if (spawnPosition.x < 0) selectedEnemyTargets = EnemyTarget.leftTargets;
-            return selectedEnemyTargets;
+            int num = 0;
+            GameObject selectedEnemyTarget = null;
+            if (spawnPosition.x >= 0) // right
+            {
+                num = Random.Range(0, EnemyTarget.rightTargets.Count);
+                Debug.Log(num);
+                selectedEnemyTarget = EnemyTarget.rightTargets[num];
+            }
+
+            else if (spawnPosition.x < 0) // left
+            {
+                num = Random.Range(0, EnemyTarget.leftTargets.Count);
+                Debug.Log(num);
+                selectedEnemyTarget = EnemyTarget.leftTargets[num];
+            }
+
+            return selectedEnemyTarget;
         }
     }
 }
