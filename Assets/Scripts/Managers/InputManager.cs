@@ -10,6 +10,7 @@ namespace SwordfishGame
         // Controls
         public InputAction playerMoveAction;
         public InputAction attackAction;
+        public InputAction leanAction;
 
         // Switches
         public bool inputEnabled;
@@ -17,6 +18,9 @@ namespace SwordfishGame
         // Structs
         private Vector3 playerMovementInput;
         private bool attackInput;
+        private bool leanInput;
+
+        private bool canPressKey = true;
 
         // Singletons
         PlayerStats playerStats;
@@ -28,8 +32,10 @@ namespace SwordfishGame
         //Gets/Sets
         public Vector3 PlayerMovementInput { get => playerMovementInput; }
         public bool AttackInput { get => attackInput; }
+        public bool LeanInput { get => leanInput; }
         public float MouseX { get => mouseX; }
         public float MouseY { get => mouseY; }
+
 
         void Start()
         {
@@ -60,6 +66,11 @@ namespace SwordfishGame
             attackInput = context.ReadValueAsButton();
         }
 
+        void OnLeanPreformed(InputAction.CallbackContext context)
+        {
+            leanInput = context.ReadValueAsButton();
+        }
+
         void ManageInput()
         {
             if (playerMoveAction == null) return;
@@ -67,8 +78,10 @@ namespace SwordfishGame
             {
                 playerMoveAction.Enable();
                 attackAction.Enable();
+                leanAction.Enable();
                 playerMoveAction.performed += OnMovePreformed;
                 attackAction.performed += OnAttackPreformed;
+                leanAction.performed += OnLeanPreformed;
 
                 // Mouse Input (Using old input system)
                 mouseX = Input.GetAxis("Mouse X") * playerStats.MouseSensitivity * Time.deltaTime;
@@ -78,8 +91,11 @@ namespace SwordfishGame
             {
                 playerMoveAction.Disable();
                 attackAction.Disable();
+                leanAction.Disable();
                 playerMoveAction.performed -= OnMovePreformed;
-                attackAction.performed += OnAttackPreformed;
+                attackAction.performed -= OnAttackPreformed;
+                leanAction.performed -= OnLeanPreformed;
+
             }
         }
 

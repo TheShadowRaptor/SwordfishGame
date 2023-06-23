@@ -18,6 +18,7 @@ namespace SwordfishGame
         private PlayerStats playerStats;
         private PlayerController playerController;
         private WeaponController weaponController;
+        private CameraController cameraController;
         private OceanManager oceanManager;
 
         // SingletonObjects Gets/Sets
@@ -28,6 +29,7 @@ namespace SwordfishGame
         public InputManager InputManager { get => inputManager; }
         public PlayerStats PlayerStats { get => playerStats; }
         public PlayerController PlayerController { get => playerController; }
+        public CameraController CameraController { get => cameraController; }
         public WeaponController WeaponController { get => weaponController; }
         public OceanManager OceanManager { get => oceanManager; }
 
@@ -55,6 +57,7 @@ namespace SwordfishGame
             playerStats = GetComponentInChildren<PlayerStats>();
             playerController = GetComponentInChildren<PlayerController>();
             weaponController = GetComponentInChildren<WeaponController>();
+            cameraController = GetComponentInChildren<CameraController>();
             oceanManager = GetComponentInChildren<OceanManager>();
         }
     }

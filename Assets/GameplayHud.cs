@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using SwordfishGame;
+using UnityEngine.UI;
 
 public class GameplayHud : MonoBehaviour
 {
     public TextMeshProUGUI waveDir;
     public TextMeshProUGUI waveNum;
     public TextMeshProUGUI enemiesRemaining;
+
+    public Image canLean;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +23,7 @@ public class GameplayHud : MonoBehaviour
     void Update()
     {
         UpdateTextValues();
+        UpdateImages();
     }
 
     void UpdateTextValues()
@@ -33,5 +37,11 @@ public class GameplayHud : MonoBehaviour
 
         waveNum.text = $"Wave: {MasterSingleton.Instance.EnemyManager.waveCounter}";
         enemiesRemaining.text = $"Swordfish: {EnemyManager.enemyAliveCounter}";
+    }
+
+    void UpdateImages()
+    {
+        if (MasterSingleton.Instance.PlayerController.CanLean() && !MasterSingleton.Instance.PlayerController.isLeaning) canLean.enabled = true;
+        else canLean.enabled = false;
     }
 }

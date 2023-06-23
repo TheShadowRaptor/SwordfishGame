@@ -10,11 +10,9 @@ namespace SwordfishGame
 
         [Header("CamerSettings")]
         [SerializeField] float mouseSensitivity = 100f;
-        [SerializeField] float minViewDistance = 45f;
 
         // Gets/Sets
         public float MouseSensitivity { get => mouseSensitivity; }
-        public float MinViewDistance { get => minViewDistance; }
         public int Damage { get => damage; }
 
         // Start is called before the first frame update

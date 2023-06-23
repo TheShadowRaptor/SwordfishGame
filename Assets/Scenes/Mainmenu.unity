@@ -919,6 +919,23 @@ MonoBehaviour:
       m_Action: Attack
       m_Flags: 0
     m_Flags: 0
+  leanAction:
+    m_Name: Lean
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 717730dd-c3f0-41ef-a2bb-bd951d01c0cc
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 5f22a95b-03bd-47f5-a439-6d4ea6db8b25
+      m_Path: <Keyboard>/#(E)
+      m_Interactions: Press(behavior=2)
+      m_Processors: 
+      m_Groups: 
+      m_Action: Lean
+      m_Flags: 0
+    m_Flags: 0
   inputEnabled: 0
 --- !u!1 &491947108
 GameObject:
@@ -954,6 +971,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6315e70c0678c2a4588bf60c073d9e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLeaning: 0
+  leanOverable:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!136 &491947110
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1051,7 +1072,6 @@ MonoBehaviour:
   isAlive: 0
   damage: 1
   mouseSensitivity: 100
-  minViewDistance: 75
 --- !u!54 &491947116
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2363,6 +2383,7 @@ RectTransform:
   - {fileID: 142793289}
   - {fileID: 893729541}
   - {fileID: 1184453075}
+  - {fileID: 1044945593}
   m_Father: {fileID: 1741897337}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2447,13 +2468,14 @@ MonoBehaviour:
   waveDir: {fileID: 142793290}
   waveNum: {fileID: 893729542}
   enemiesRemaining: {fileID: 1184453076}
+  canLean: {fileID: 1044945594}
 --- !u!43 &1027132911
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-193812
+  m_Name: pb_Mesh28256
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2611,6 +2633,82 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1044945592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1044945593}
+  - component: {fileID: 1044945595}
+  - component: {fileID: 1044945594}
+  m_Layer: 5
+  m_Name: ImageCanLean
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1044945593
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044945592}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 979776487}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 50, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1044945594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044945592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.9887359, g: 1, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1044945595
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044945592}
+  m_CullTransparentMesh: 1
 --- !u!1 &1075841627
 GameObject:
   m_ObjectHideFlags: 0
@@ -3340,7 +3438,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1534394557}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.882, z: 0}
+  m_LocalPosition: {x: 0, y: 0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3393,6 +3491,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75cf18214fd9f6a4d95897d6d62a531d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minViewAngle: 45
+  leanViewAngle: 45
+  leanForwardDistance: 3
+  maxVerticalLeanViewAngle: 60
+  minVerticalLeanViewAngle: 0
+  maxHorizontalLeanViewAngle: 180
+  minHorizontalLeanViewAngle: 0
 --- !u!1 &1600149940
 GameObject:
   m_ObjectHideFlags: 0

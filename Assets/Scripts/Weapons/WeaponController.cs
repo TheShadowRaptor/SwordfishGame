@@ -33,27 +33,33 @@ namespace SwordfishGame
             DeactivateHarpoonTip();
         }
 
+        private bool attackButtonPressed = false;
         void Attack()
         {
             if (tipLoaded)
             {
-                //Debug.Log("CanAttack");
-                // Hitboc is on weapon. Animation will play well activating hit box
                 AnimatorStateInfo stateInfo = weaponAnimator.GetCurrentAnimatorStateInfo(0);
-                // Chacks if animation is done playing
                 if (stateInfo.IsName("AttackAnimation") && stateInfo.normalizedTime >= 1.0f)
                 {
                     weaponAnimator.SetBool("isAttacking", false);
                 }
                 else
                 {
-                    if (inputManager.AttackInput)
+                    if (inputManager.AttackInput && !attackButtonPressed)
                     {
                         weaponAnimator.SetBool("isAttacking", true);
+                        attackButtonPressed = true;
+                    }
+                    else if (!inputManager.AttackInput)
+                    {
+                        attackButtonPressed = false;
                     }
                 }
             }
-            else Reload();
+            else
+            {
+                Reload();
+            }
         }
 
         void Reload()
