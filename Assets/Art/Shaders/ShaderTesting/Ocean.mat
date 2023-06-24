@@ -156,11 +156,16 @@ Material:
     - _DstBlend: 0
     - _EMISSION_WEIGHT: 1
     - _EnvironmentReflections: 1
-    - _FadeOpacity: 0.64
+    - _FadeOpacity: 0.43
     - _Fade_Opacity: 0.15
-    - _FoamDepth: 1
+    - _Float: 0
+    - _FoamCutoff: 1
+    - _FoamDepth: 1.8
+    - _FoamFade: 1.14
     - _FoamNoiseScale: 0
     - _FoamRippleSpeed: 1
+    - _FoamScale: 58.94
+    - _FoamSpeed: 0.05
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -168,16 +173,16 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _PosterizeStep: 49.92
+    - _PosterizeStep: 11.16
     - _QueueControl: 0
     - _QueueOffset: 0
     - _REFLECTIONS_IOR: 1.52
     - _REFLECTIONS_ROUGHNESS: 1
     - _REFLECTIONS_WEIGHT: 1
     - _ReceiveShadows: 1
-    - _RefractionScale: 0.13
-    - _RefractionSpeed: 1.05
-    - _RefractionStrength: 0.1
+    - _RefractionScale: 0.1
+    - _RefractionSpeed: 0.1
+    - _RefractionStrength: 0.002
     - _RippleDensity: 5
     - _RipplePower: 5
     - _RippleSpeed: 1
@@ -207,6 +212,7 @@ Material:
     - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 0, g: 0, b: 0, a: 0}
+    - _FoamColour: {r: 0.6786668, g: 0.9528302, b: 0.93424284, a: 1}
     - _Overlay: {r: 0, g: 0, b: 0, a: 0}
     - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _RippleColor: {r: 1, g: 1, b: 1, a: 0}
