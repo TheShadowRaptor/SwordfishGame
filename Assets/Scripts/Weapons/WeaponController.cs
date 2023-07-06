@@ -86,8 +86,10 @@ namespace SwordfishGame
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!tipLoaded) return;
             if (other.gameObject.CompareTag("Enemy"))
             {
+                other.gameObject.GetComponent<EnemyStats>().TakeDamage(MasterSingleton.Instance.PlayerStats.Damage);
                 tipLoaded = false;
             }
         }

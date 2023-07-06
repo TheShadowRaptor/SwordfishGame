@@ -16,6 +16,7 @@ namespace SwordfishGame
 
         // Gets/Sets
         public float MovementSpeed { get => movementSpeed; }
+        public int Health { get => health; }
 
         public void TakeDamage(int damage)
         {

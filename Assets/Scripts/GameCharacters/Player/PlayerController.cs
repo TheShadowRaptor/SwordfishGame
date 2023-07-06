@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 
 namespace SwordfishGame
@@ -40,12 +39,13 @@ namespace SwordfishGame
 
         public void SpawnOnSpawnPoint()
         {
+            if (MasterSingleton.Instance.GameManager.gameState != GameManager.GameState.gameplay) return;
             Transform spawnPointTranform = GameObject.Find("PlayerSpawnPoint").transform;
             gameObject.transform.position = spawnPointTranform.position;
         }
         public bool CanLean()
         {
-            if (Physics.Raycast(Camera.main.gameObject.transform.position, Camera.main.transform.forward, out RaycastHit leanableHit, 2f, leanOverable)) return true;           
+            if (Physics.Raycast(Camera.main.gameObject.transform.position, Camera.main.transform.forward, out RaycastHit leanableHit, 1.6f, leanOverable)) return true;           
             else return false;
         }
         
@@ -81,7 +81,7 @@ namespace SwordfishGame
                     Debug.Log("isLeaning");
 
                     // Debug visualization
-                    Debug.DrawRay(Camera.main.gameObject.transform.position, Camera.main.transform.forward * 1.9f, Color.green, 2f);
+                    Debug.DrawRay(Camera.main.gameObject.transform.position, Camera.main.transform.forward * 1.6f, Color.green, 2f);
                 }
                 else if (!inputManager.LeanInput)
                 {
@@ -91,7 +91,7 @@ namespace SwordfishGame
             else
             {
                 // Debug visualization
-                Debug.DrawRay(gameObject.transform.position, transform.forward * 1.9f, Color.red, 1.0f);
+                Debug.DrawRay(gameObject.transform.position, transform.forward * 1.6f, Color.red, 1.0f);
             }
         }
 

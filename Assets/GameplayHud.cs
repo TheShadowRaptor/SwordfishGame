@@ -10,6 +10,7 @@ public class GameplayHud : MonoBehaviour
     public TextMeshProUGUI waveDir;
     public TextMeshProUGUI waveNum;
     public TextMeshProUGUI enemiesRemaining;
+    public TextMeshProUGUI shipHealth;
 
     public Image canLean;
 
@@ -28,6 +29,7 @@ public class GameplayHud : MonoBehaviour
 
     void UpdateTextValues()
     {
+        if (MasterSingleton.Instance.GameManager.gameState != GameManager.GameState.gameplay) return;
         if (MasterSingleton.Instance.EnemyManager.spawnWaveOnRight)
         {
             waveDir.text = $"right";
@@ -37,10 +39,12 @@ public class GameplayHud : MonoBehaviour
 
         waveNum.text = $"Wave: {MasterSingleton.Instance.EnemyManager.waveCounter}";
         enemiesRemaining.text = $"Swordfish: {EnemyManager.enemyAliveCounter}";
+        shipHealth.text = $"Ship Health: {ShipStats.Instance.Health}";
     }
 
     void UpdateImages()
     {
+        if (MasterSingleton.Instance.GameManager.gameState != GameManager.GameState.gameplay) return;
         if (MasterSingleton.Instance.PlayerController.CanLean() && !MasterSingleton.Instance.PlayerController.isLeaning) canLean.enabled = true;
         else canLean.enabled = false;
     }

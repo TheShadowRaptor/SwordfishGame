@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace SwordfishGame
@@ -7,6 +8,7 @@ namespace SwordfishGame
     {
         Rigidbody rb;
         [SerializeField] protected EnemyStats stats;
+        [SerializeField] protected GameObject ship;
 
         [Header("Patrol Settings")]
         public GameObject target;
@@ -19,6 +21,7 @@ namespace SwordfishGame
         public enum EnemyStates
         {
             swimming,
+            ramming,
             attacking,
             dying
         }
@@ -39,6 +42,8 @@ namespace SwordfishGame
         {
             rb = GetComponent<Rigidbody>();
             enemyState = EnemyStates.swimming;
+            ship = ShipStats.Instance.gameObject;
+            stats.timeTillNextAttackReset = stats.timeTillNextAttack;
         }
 
         // Update is called once per frame
@@ -50,9 +55,15 @@ namespace SwordfishGame
                 case EnemyStates.swimming:
                     Swim();
                     break;
+
+                case EnemyStates.ramming:
+                    Swim();
+                    break;
+
                 case EnemyStates.attacking:
+                    CheckIfCanDamageShip();
+                    break;
                     
-                    break; 
                 case EnemyStates.dying:
                     break;
             }
@@ -70,26 +81,54 @@ namespace SwordfishGame
             Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, stats.TurnSpeed * Time.deltaTime);
 
-            // Move towards target
-            transform.position += transform.forward * stats.MovementSpeed * Time.deltaTime;
+            Vector3 enemyDistancePos = transform.position;
+            Vector3 targetDistancePos = target.transform.position;
 
-            // Check if we've reached the target
-            if (Vector3.Distance(transform.position, target.transform.position) < 1f)
+            enemyDistancePos.y = 0;
+            targetDistancePos.y = 0;
+
+            float distance = Vector3.Distance(enemyDistancePos, targetDistancePos);
+
+            if (enemyState == EnemyStates.swimming)
             {
-                
+                // Move towards target
+                transform.position += transform.forward * stats.MovementSpeed * Time.deltaTime;
+
+                // Check if half way from the target
+                if (distance <= 20f)
+                {
+                    enemyState = EnemyStates.ramming;
+                }
+            }
+            else if (enemyState == EnemyStates.ramming) 
+            {
+                // Ram towards target
+                transform.position += transform.forward * stats.rammingSpeed * Time.deltaTime;
+                // Check if reached the target
+                if (distance < 1f)
+                {
+                    enemyState = EnemyStates.attacking;
+                }
             }
         }
 
-        private void OnTriggerEnter(Collider other)
+        private bool CanAttack()
         {
-            if (!stats.isAlive) return;
-            if (other.gameObject.CompareTag("Harpoon"))
+            stats.timeTillNextAttack -= Time.deltaTime;
+
+            if (stats.timeTillNextAttack <= 0)
             {
-                int damage = MasterSingleton.Instance.PlayerStats.Damage;
-                stats.TakeDamage(damage);
-                other.gameObject.GetComponent<WeaponController>().tipLoaded = false;
-                // HitBox script also has an onTrigger checking for enemy
-                //Debug.Log("damage");
+                return true;
+            }
+            return false;
+        }
+
+        private void CheckIfCanDamageShip()
+        {
+            if (CanAttack())
+            {
+                ship.GetComponent<ShipStats>().TakeDamage(stats.damage);
+                stats.timeTillNextAttack = stats.timeTillNextAttackReset;
             }
         }
     }

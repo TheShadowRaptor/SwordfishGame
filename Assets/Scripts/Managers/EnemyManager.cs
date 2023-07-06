@@ -18,7 +18,7 @@ namespace SwordfishGame
 
         private List<GameObject> enemyPool;
 
-        public float spawnInterval = 1.0f;
+        public float spawnInterval = 1.5f;
         public int enemiesPerWave = 10;
 
         public int enemiesSpawned = 0;
@@ -36,6 +36,14 @@ namespace SwordfishGame
                 enemy.SetActive(false);
                 enemyPool.Add(enemy);
             } 
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SpawnEnemyWave();
+            }
         }
 
         private bool sideChosen = false;
@@ -141,6 +149,11 @@ namespace SwordfishGame
                 num = Random.Range(0, EnemyTarget.leftTargets.Count);
                 Debug.Log(num);
                 selectedEnemyTarget = EnemyTarget.leftTargets[num];
+            }
+
+            if (selectedEnemyTarget == null)
+            {
+                Debug.LogError("Enemy Target is null");
             }
 
             return selectedEnemyTarget;

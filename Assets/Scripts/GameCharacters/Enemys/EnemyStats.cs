@@ -10,7 +10,15 @@ namespace SwordfishGame
         public float TurnSpeed { get => turnSpeed; }
 
         public GameObject _buoy;
+        public int damage;
+        public float attackSpeed;
+        public float rammingSpeed;
+
+        public float timeTillNextAttack;
+        public float timeTillNextAttackReset;
+
         [SerializeField] protected float turnSpeed;
+
         [SerializeField] protected EnemyController _enemyController;
 
         private float deathTimer = 1.5f;

@@ -32,7 +32,7 @@ namespace SwordfishGame
         void Start()
         {
             FindComponents();
-            basePosition = new Vector3(0, 0.9f, 0);
+            basePosition = new Vector3(0, 1f, 0);
         }
 
         // Update is called once per frame
@@ -54,7 +54,9 @@ namespace SwordfishGame
                 if (!enteredLean)
                 {
                     // Calculate the desired position and rotation for the camera when leaning
-                    Vector3 leanPosition = playerController.transform.position + playerController.transform.forward * leanForwardDistance;
+                    Vector3 playerPos = playerController.transform.position;
+                    playerPos.y = playerPos.y + 1f;
+                    Vector3 leanPosition = playerPos + playerController.transform.forward * leanForwardDistance;
                     Quaternion leanRotation = Quaternion.LookRotation(playerController.transform.forward, Vector3.up);
 
                     // Apply the lean position and rotation to the container object
@@ -117,20 +119,6 @@ namespace SwordfishGame
         }
 
         // Helper function to normalize an angle to be within 0-360 degrees
-        float NormalizeAngle(float angle)
-        {
-            while (angle < 0f)
-            {
-                angle += 360f;
-            }
-
-            while (angle > 360f)
-            {
-                angle -= 360f;
-            }
-
-            return angle;
-        }
 
         void FindComponents()
         {
