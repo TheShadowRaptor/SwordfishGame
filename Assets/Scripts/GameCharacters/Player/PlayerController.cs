@@ -51,14 +51,18 @@ namespace SwordfishGame
         
         void MovePlayer()
         {
-            // For easier Reading
             Vector3 input = inputManager.PlayerMovementInput;
+            Vector3 mobileInput = new Vector3(inputManager.MobileMoveHorizontal, 0, inputManager.MobileMoveVertical);
             float speed = playerStats.MovementSpeed;
 
+            // PC
             Vector3 playerVelocity = new Vector3(input.x * speed, rb.velocity.y, input.z * speed);
+            // Mobile
+            Vector3 playerMobileVelocity = mobileInput * speed;
 
             // Moves player
             rb.velocity = transform.TransformDirection(playerVelocity);
+            rb.velocity = transform.TransformDirection(playerMobileVelocity);
         }
 
         [SerializeField] private LayerMask leanOverable;

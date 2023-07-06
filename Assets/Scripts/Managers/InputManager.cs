@@ -29,12 +29,34 @@ namespace SwordfishGame
         float mouseX;
         float mouseY;
 
+        // Mobile
+        public FixedJoystick movementJoystick; 
+        public FixedJoystick lookJoystick; 
+        public Joybutton joyAttack; 
+
+        private float mobileMoveHorizontal;
+        private float mobileMoveVertical;
+
+        private float mobileLookHorizontal;
+        private float mobileLookVertical;
+
+        private bool screenPressed = false;
+        private float tapDurationThreshold = 0.2f; // Adjust this value as needed
+        private float touchStartTime;
+
         //Gets/Sets
         public Vector3 PlayerMovementInput { get => playerMovementInput; }
         public bool AttackInput { get => attackInput; }
         public bool LeanInput { get => leanInput; }
         public float MouseX { get => mouseX; }
         public float MouseY { get => mouseY; }
+
+        //Gets/Sets Mobile
+        public float MobileMoveHorizontal { get => mobileMoveHorizontal; }
+        public float MobileMoveVertical { get => mobileMoveVertical; }
+        public float MobileLookHorizontal { get => mobileLookHorizontal; }
+        public float MobileLookVertical { get => mobileLookVertical; }
+        public bool ScreenPressed { get => screenPressed; }
 
 
         void Start()
@@ -86,16 +108,57 @@ namespace SwordfishGame
                 // Mouse Input (Using old input system)
                 mouseX = Input.GetAxis("Mouse X") * playerStats.MouseSensitivity * Time.deltaTime;
                 mouseY = Input.GetAxis("Mouse Y") * playerStats.MouseSensitivity * Time.deltaTime;
-            }
-            else
-            {
-                playerMoveAction.Disable();
-                attackAction.Disable();
-                leanAction.Disable();
-                playerMoveAction.performed -= OnMovePreformed;
-                attackAction.performed -= OnAttackPreformed;
-                leanAction.performed -= OnLeanPreformed;
 
+                // Mobile Input (Using old input system)
+                mobileMoveHorizontal = movementJoystick.Horizontal;
+                mobileMoveVertical = movementJoystick.Vertical;
+
+                mobileLookHorizontal = lookJoystick.Horizontal * playerStats.MobileLookSensitivity * Time.deltaTime;
+                mobileLookVertical = lookJoystick.Vertical * playerStats.MobileLookSensitivity * Time.deltaTime;
+
+                // Screen press detect
+                if (Input.touchCount > 0)
+                {
+                    Touch touch = Input.GetTouch(0);
+
+                    if (touch.phase == UnityEngine.TouchPhase.Began)
+                    {
+                        // Record the start time of the touch
+                        touchStartTime = Time.time;
+                    }
+                    else if (touch.phase == UnityEngine.TouchPhase.Ended)
+                    {
+                        // Calculate the duration of the touch
+                        float touchDuration = Time.time - touchStartTime;
+
+                        if (touchDuration < tapDurationThreshold)
+                        {
+                            // The touch duration is below the threshold, consider it a quick tap
+                            screenPressed = true;
+                            Debug.Log("Quick tap detected");
+                        }
+                        else
+                        {
+                            // Reset the boolean variable and touch start time
+                            screenPressed = false;
+                            touchStartTime = 0f;
+                        }
+                    }
+                    else
+                    {
+                        screenPressed = false;
+                    }
+                }
+                else
+                {
+                    playerMoveAction.Disable();
+                    attackAction.Disable();
+                    leanAction.Disable();
+                    playerMoveAction.performed -= OnMovePreformed;
+                    attackAction.performed -= OnAttackPreformed;
+                    leanAction.performed -= OnLeanPreformed;
+
+                }               
             }
         }
 

@@ -10,9 +10,11 @@ namespace SwordfishGame
 
         [Header("CamerSettings")]
         [SerializeField] float mouseSensitivity = 100f;
+        [SerializeField] float mobileLookSensitivity = 75f;
 
         // Gets/Sets
         public float MouseSensitivity { get => mouseSensitivity; }
+        public float MobileLookSensitivity { get => mobileLookSensitivity; }
         public int Damage { get => damage; }
 
         // Start is called before the first frame update

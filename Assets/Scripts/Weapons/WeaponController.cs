@@ -45,12 +45,12 @@ namespace SwordfishGame
                 }
                 else
                 {
-                    if (inputManager.AttackInput && !attackButtonPressed)
+                    if (inputManager.AttackInput && !attackButtonPressed || MasterSingleton.Instance.InputManager.ScreenPressed && !attackButtonPressed)
                     {
                         weaponAnimator.SetBool("isAttacking", true);
                         attackButtonPressed = true;
                     }
-                    else if (!inputManager.AttackInput)
+                    else if (!inputManager.AttackInput || !MasterSingleton.Instance.InputManager.ScreenPressed)
                     {
                         attackButtonPressed = false;
                     }

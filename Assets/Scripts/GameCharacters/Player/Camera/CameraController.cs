@@ -20,6 +20,7 @@ namespace SwordfishGame
         [SerializeField] float minHorizontalLeanViewAngle = -45;
 
         private float xRotation;
+        private float mobileXRotation;
 
         private Vector3 basePosition;
 
@@ -87,6 +88,25 @@ namespace SwordfishGame
                 rotationX = Mathf.Clamp(rotationX, minVerticalLeanViewAngle, maxVerticalLeanViewAngle);
                 rotationY = Mathf.Clamp(rotationY, minAngle, maxAngle);
 
+                //Mobile
+
+                // Rotate the container object based on input
+                float horizontalMobileInput = inputManager.MobileLookHorizontal;
+                float verticalMobileInput = inputManager.MobileLookVertical;
+
+                // Adjust the rotation values based on input
+                float mobileRotationX = currentEulerAngles.x - verticalMobileInput;
+                float mobileRotationY = currentEulerAngles.y + horizontalMobileInput;
+
+                // Clamp the rotation values within the specified range
+                mobileRotationX = Mathf.Clamp(mobileRotationX, minVerticalLeanViewAngle, maxVerticalLeanViewAngle);
+                mobileRotationY = Mathf.Clamp(mobileRotationY, minAngle, maxAngle);
+
+                mobileRotationX = Mathf.Clamp(mobileRotationX, minVerticalLeanViewAngle, maxVerticalLeanViewAngle);
+                mobileRotationY = Mathf.Clamp(mobileRotationY, minAngle, maxAngle);
+
+                //===================================================================================================
+
                 // Prevent wrapping around the other side
                 if (rotationY < 0f)
                 {
@@ -97,16 +117,36 @@ namespace SwordfishGame
                     rotationY = 359f;
                 }
 
+                // Prevent wrapping around the other side / Mobile
+                if (mobileRotationY < 0f)
+                {
+                    mobileRotationY = 0f;
+                }
+                else if (mobileRotationY > 359f)
+                {
+                    mobileRotationY = 359f;
+                }
+
                 // Apply the adjusted rotation to the container object
                 transform.rotation = Quaternion.Euler(rotationX, rotationY, 0f);
+
+                // Mobile
+                transform.rotation = Quaternion.Euler(mobileRotationX * 2, mobileRotationY * 2, 0f);
             }
             else
             {
                 xRotation -= inputManager.MouseY;
                 xRotation = Mathf.Clamp(xRotation, -90f, minViewAngle);
 
+                mobileXRotation -= inputManager.MobileLookVertical;
+                mobileXRotation = Mathf.Clamp(mobileXRotation, -90f, minViewAngle);
+
                 transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
                 playerController.transform.Rotate(Vector3.up * inputManager.MouseX);
+
+                // Mobile
+                transform.localRotation = Quaternion.Euler(mobileXRotation, 0f, 0f);
+                playerController.transform.Rotate(Vector3.up * inputManager.MobileLookHorizontal * 2);
 
                 // Reset the camera position
                 transform.localPosition = basePosition;
