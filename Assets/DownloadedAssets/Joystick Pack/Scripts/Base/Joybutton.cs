@@ -3,32 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Joybutton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
+namespace SwordfishGame
 {
-    protected bool pressed;
-
-    // Get/Set
-    public bool Pressed { get => pressed; }
-
-    // Start is called before the first frame update
-    void Start()
+    public class Joybutton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     {
+        protected bool pressed;
+
+        // Get/Set
+        public bool Pressed { get => pressed; }
+
+        // Start is called before the first frame update
+        void Start()
+        {
         
-    }
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
+        // Update is called once per frame
+        void Update()
+        {
         
-    }
+        }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        pressed = true;
-    }
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            pressed = true;
+        }
 
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        pressed = false;
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            pressed = false;
+        }
     }
 }

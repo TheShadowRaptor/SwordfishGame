@@ -33,6 +33,7 @@ namespace SwordfishGame
         public FixedJoystick movementJoystick; 
         public FixedJoystick lookJoystick; 
         public Joybutton joyAttack; 
+        public Joybutton joyLean; 
 
         private float mobileMoveHorizontal;
         private float mobileMoveVertical;
@@ -117,9 +118,9 @@ namespace SwordfishGame
                 mobileLookVertical = lookJoystick.Vertical * playerStats.MobileLookSensitivity * Time.deltaTime;
 
                 // Screen press detect
-                if (Input.touchCount > 0)
+                if (Input.touchCount > 1)
                 {
-                    Touch touch = Input.GetTouch(0);
+                    Touch touch = Input.GetTouch(1);
 
                     if (touch.phase == UnityEngine.TouchPhase.Began)
                     {
@@ -143,23 +144,23 @@ namespace SwordfishGame
                             screenPressed = false;
                             touchStartTime = 0f;
                         }
-                    }
+                    }                   
                     else
                     {
                         screenPressed = false;
                     }
                 }
-                else
-                {
-                    playerMoveAction.Disable();
-                    attackAction.Disable();
-                    leanAction.Disable();
-                    playerMoveAction.performed -= OnMovePreformed;
-                    attackAction.performed -= OnAttackPreformed;
-                    leanAction.performed -= OnLeanPreformed;
-
-                }               
             }
+            else
+            {
+                playerMoveAction.Disable();
+                attackAction.Disable();
+                leanAction.Disable();
+                playerMoveAction.performed -= OnMovePreformed;
+                attackAction.performed -= OnAttackPreformed;
+                leanAction.performed -= OnLeanPreformed;
+
+            }                         
         }
 
         void FindComponents()

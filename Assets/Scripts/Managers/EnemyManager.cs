@@ -76,7 +76,7 @@ namespace SwordfishGame
                 // Spawn next enemy from object pool
                 GameObject enemy = GetNextEnemyFromPool();
                 enemy.transform.position = GetSpawnPosition();
-                enemy.GetComponent<EnemyController>().target = SetTargets();
+                enemy.GetComponent<EnemyController>().target = SetTarget(enemy.transform.position);
                 enemy.GetComponent<EnemyStats>().InitStats(1);
                 enemy.GetComponent<EnemyStats>().Spawn();
                 enemy.SetActive(true);
@@ -119,13 +119,13 @@ namespace SwordfishGame
             int leftLocation;
             if (spawnWaveOnRight)
             {
-                rightLocation = Random.Range(100, 200);
+                rightLocation = Random.Range(5, 25);
                 spawnPosition = new Vector3(transform.position.x + rightLocation, transform.position.y, transform.position.z + 100);
                 Debug.Log($"rightLocation | {rightLocation}");
             }
             else
             {
-                leftLocation = Random.Range(100, 200);
+                leftLocation = Random.Range(5, 25);
                 spawnPosition = new Vector3(transform.position.x - leftLocation, transform.position.y, transform.position.z + 100);
                 Debug.Log($"LeftLocation | {leftLocation}");
             }
@@ -133,22 +133,41 @@ namespace SwordfishGame
             return spawnPosition;
         }
 
-        private GameObject SetTargets()
+        int num = 0;
+        private GameObject SetTarget(Vector3 enemySpawnPosition)
         {
-            int num = 0;
             GameObject selectedEnemyTarget = null;
-            if (spawnPosition.x >= 0) // right
+            Debug.Log($"X Spawn {enemySpawnPosition.x}");
+
+            if (enemySpawnPosition.x >= 0) // right
             {
                 num = Random.Range(0, EnemyTarget.rightTargets.Count);
-                Debug.Log(num);
-                selectedEnemyTarget = EnemyTarget.rightTargets[num];
-            }
+                Debug.Log($"Right Target Count: {EnemyTarget.rightTargets.Count}");
+                Debug.Log($"Generated Index for Right Target: {num}");
 
-            else if (spawnPosition.x < 0) // left
+                if (num >= 0 && num < EnemyTarget.rightTargets.Count)
+                {
+                    selectedEnemyTarget = EnemyTarget.rightTargets[num];
+                }
+                else
+                {
+                    Debug.LogError("Invalid index for Right Targets");
+                }
+            }
+            else if (enemySpawnPosition.x < 0) // left
             {
                 num = Random.Range(0, EnemyTarget.leftTargets.Count);
-                Debug.Log(num);
-                selectedEnemyTarget = EnemyTarget.leftTargets[num];
+                Debug.Log($"Left Target Count: {EnemyTarget.leftTargets.Count}");
+                Debug.Log($"Generated Index for Left Target: {num}");
+
+                if (num >= 0 && num < EnemyTarget.leftTargets.Count)
+                {
+                    selectedEnemyTarget = EnemyTarget.leftTargets[num];
+                }
+                else
+                {
+                    Debug.LogError("Invalid index for Left Targets");
+                }
             }
 
             if (selectedEnemyTarget == null)

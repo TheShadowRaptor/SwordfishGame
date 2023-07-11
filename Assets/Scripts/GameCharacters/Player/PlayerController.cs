@@ -8,6 +8,7 @@ namespace SwordfishGame
     {
         // Public bools
         public bool isLeaning = false;
+        public bool isMobile;
 
         // Singletons
         InputManager inputManager;
@@ -55,14 +56,17 @@ namespace SwordfishGame
             Vector3 mobileInput = new Vector3(inputManager.MobileMoveHorizontal, 0, inputManager.MobileMoveVertical);
             float speed = playerStats.MovementSpeed;
 
-            // PC
-            Vector3 playerVelocity = new Vector3(input.x * speed, rb.velocity.y, input.z * speed);
-            // Mobile
-            Vector3 playerMobileVelocity = mobileInput * speed;
+            Vector3 playerVelocity = Vector3.zero;
+            Vector3 playerMobileVelocity = Vector3.zero;
 
-            // Moves player
+            // PC
+            playerVelocity = new Vector3(input.x * speed, rb.velocity.y, input.z * speed);
             rb.velocity = transform.TransformDirection(playerVelocity);
+
+            // Mobile
+            playerMobileVelocity = mobileInput * speed;
             rb.velocity = transform.TransformDirection(playerMobileVelocity);
+            
         }
 
         [SerializeField] private LayerMask leanOverable;
@@ -70,14 +74,14 @@ namespace SwordfishGame
         private bool leanButtonPressed = false;
         void LeanOverSide()
         {
-            if (isLeaning && !inputManager.LeanInput)
+            if (isLeaning && !inputManager.joyLean.Pressed)
             {
                 isLeaning = false;
                 Debug.Log("isNotLeaning");
             }
             else if (CanLean())
             {
-                if (inputManager.LeanInput && !leanButtonPressed)
+                if (inputManager.joyLean.Pressed && !leanButtonPressed)
                 {
                     // Go into lean view
                     isLeaning = true;
@@ -87,7 +91,7 @@ namespace SwordfishGame
                     // Debug visualization
                     Debug.DrawRay(Camera.main.gameObject.transform.position, Camera.main.transform.forward * 1.6f, Color.green, 2f);
                 }
-                else if (!inputManager.LeanInput)
+                else if (!inputManager.joyLean.Pressed)
                 {
                     leanButtonPressed = false;
                 }
