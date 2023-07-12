@@ -1,8 +1,6 @@
 // PLEASE READ!!!!
 // This script was taken from a Stylised Water Shader tutorial made by 'Alexander Ameye'.
 // The tutorial can be found here https://alexanderameye.github.io/notes/stylized-water-shader/
-// I would have done this on my own if I knew how to. But unfortunately I've got a skill issue.
-// so taking someone's code with credit it is. 
 
 float3 GerstnerWave(float3 position, float steepness, float wavelength, float speed, float direction, inout float3 tangent, inout float3 binormal)
 {

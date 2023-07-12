@@ -408,6 +408,9 @@
         },
         {
             "m_Id": "d74212e3d9d94b33b10b49e38b03c90e"
+        },
+        {
+            "m_Id": "001160c751a14c08bdde4df45bf551d3"
         }
     ],
     "m_Edges": [
@@ -1609,6 +1612,26 @@
             "m_Id": "92b9eec8b89e4b6d852c50dedc4d7ada"
         }
     ]
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "001160c751a14c08bdde4df45bf551d3",
+    "m_Title": "",
+    "m_Content": "ew. yuckies\n",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": -1984.0,
+        "y": 647.0,
+        "width": 203.0,
+        "height": 100.0
+    },
+    "m_Group": {
+        "m_Id": "8a84476569ab42d9ace1952c26e6aab1"
+    }
 }
 
 {
@@ -9101,7 +9124,7 @@
     "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
     "m_ObjectId": "d74212e3d9d94b33b10b49e38b03c90e",
     "m_Title": "ToDo",
-    "m_Content": "add normals\n\nadd some god damn direction to panningUVs. ",
+    "m_Content": "add normals\n\nadd some god damn direction to panningUVs. \n\nlight refraction. plz",
     "m_TextSize": 0,
     "m_Theme": 0,
     "m_Position": {

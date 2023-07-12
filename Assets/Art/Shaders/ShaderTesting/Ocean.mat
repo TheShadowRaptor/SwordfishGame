@@ -165,7 +165,7 @@ Material:
     - _Density: 0.79
     - _DepthFade: 2.69
     - _DepthFadeBlend: 1.88
-    - _DepthFadeDistance: 1.32
+    - _DepthFadeDistance: 1.92
     - _Depth_Fade_Distance: 1.12
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
@@ -173,22 +173,22 @@ Material:
     - _DstBlend: 0
     - _EMISSION_WEIGHT: 1
     - _EnvironmentReflections: 1
-    - _FadeOpacity: 1.55
+    - _FadeOpacity: 0.19
     - _Fade_Opacity: 0.15
     - _Float: 0.72
     - _Float_1: 0
     - _FoamBlend: 1
     - _FoamCutoff: 0.15
-    - _FoamDepth: 1
-    - _FoamFade: 1.16
+    - _FoamDepth: 0.85
+    - _FoamFade: 1.32
     - _FoamNoiseScale: 0
     - _FoamRippleSpeed: 1
-    - _FoamScale: 12.58
+    - _FoamScale: 14.9
     - _FoamSpeed: 0.05
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HorizonDistance: 11.8
+    - _HorizonDistance: 29.82
     - _METALNESS: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
@@ -200,8 +200,8 @@ Material:
     - _REFLECTIONS_ROUGHNESS: 1
     - _REFLECTIONS_WEIGHT: 1
     - _ReceiveShadows: 1
-    - _RefractionScale: 0.214
-    - _RefractionSpeed: 0.022
+    - _RefractionScale: 0.612
+    - _RefractionSpeed: 0.045
     - _RefractionStrength: 0.003
     - _RippleDensity: 5
     - _RipplePower: 5
@@ -214,10 +214,10 @@ Material:
     - _SrcBlend: 1
     - _Strength: 0.22
     - _Surface: 0
-    - _SurfaceFoamBlend: -1.2
-    - _SurfaceFoamEdge: 0.851
-    - _SurfaceFoamScale: 2.95
-    - _SurfaceFoamSpeed: 0.089
+    - _SurfaceFoamBlend: -0.5
+    - _SurfaceFoamEdge: 0.869
+    - _SurfaceFoamScale: 9.37
+    - _SurfaceFoamSpeed: 0.043
     - _TRANSPARENCY: 0
     - _WaterAlpha: 0.82
     - _WaterHeight: 1
@@ -243,8 +243,8 @@ Material:
     - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 0, g: 0, b: 0, a: 0}
-    - _FoamColour: {r: 0.25711998, g: 0.509434, b: 0.49027088, a: 1}
-    - _HorizonColour: {r: 0.2728729, g: 0.7924528, b: 0.7760108, a: 1}
+    - _FoamColour: {r: 0.47058824, g: 0.7647059, b: 0.73839355, a: 1}
+    - _HorizonColour: {r: 0.20505883, g: 0.6509804, b: 0.61202294, a: 0.6392157}
     - _Overlay: {r: 0, g: 0, b: 0, a: 0}
     - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _RippleColor: {r: 1, g: 1, b: 1, a: 0}
