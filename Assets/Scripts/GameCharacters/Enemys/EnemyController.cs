@@ -12,6 +12,7 @@ namespace SwordfishGame
 
         [Header("Patrol Settings")]
         public GameObject target;
+        private GameObject attackTarget;
         protected int nextTarget = 0;
         bool willJump = false;
 
@@ -44,6 +45,7 @@ namespace SwordfishGame
             enemyState = EnemyStates.swimming;
             ship = ShipStats.Instance.gameObject;
             stats.timeTillNextAttackReset = stats.timeTillNextAttack;
+            attackTarget = null;
         }
 
         // Update is called once per frame
@@ -105,10 +107,17 @@ namespace SwordfishGame
                 // Ram towards target
                 transform.position += transform.forward * stats.rammingSpeed * Time.deltaTime;
                 // Check if reached the target
-                if (distance < 1f)
+                if  (distance < 1f && attackTarget != null)
                 {
                     enemyState = EnemyStates.attacking;
                 }
+                else if (distance < 1f && attackTarget == null)
+                {
+                    attackTarget = target.transform.GetChild(0).gameObject;
+                    target = attackTarget;
+
+                }
+                
             }
         }
 

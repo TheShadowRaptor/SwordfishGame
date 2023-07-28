@@ -110,45 +110,57 @@ namespace SwordfishGame
                 mouseX = Input.GetAxis("Mouse X") * playerStats.MouseSensitivity * Time.deltaTime;
                 mouseY = Input.GetAxis("Mouse Y") * playerStats.MouseSensitivity * Time.deltaTime;
 
-                // Mobile Input (Using old input system)
                 mobileMoveHorizontal = movementJoystick.Horizontal;
                 mobileMoveVertical = movementJoystick.Vertical;
 
-                mobileLookHorizontal = lookJoystick.Horizontal * playerStats.MobileLookSensitivity * Time.deltaTime;
-                mobileLookVertical = lookJoystick.Vertical * playerStats.MobileLookSensitivity * Time.deltaTime;
+                // Mobile Input (Using old input system)
+                if (JoystickIsMoved(lookJoystick))
+                {
+                    mobileLookHorizontal = lookJoystick.Horizontal * playerStats.MobileLookSensitivity * Time.deltaTime;
+                    mobileLookVertical = lookJoystick.Vertical * playerStats.MobileLookSensitivity * Time.deltaTime;
+                }
+                else
+                {
+                    mobileLookHorizontal = 0;
+                    mobileLookVertical = 0;
+                }
 
                 // Screen press detect
-                if (Input.touchCount > 1)
+                if (Input.touchCount > 0)
                 {
-                    Touch touch = Input.GetTouch(1);
-
-                    if (touch.phase == UnityEngine.TouchPhase.Began)
+                    for (int i = 0; i < Input.touchCount; i++)
                     {
-                        // Record the start time of the touch
-                        touchStartTime = Time.time;
-                    }
-                    else if (touch.phase == UnityEngine.TouchPhase.Ended)
-                    {
-                        // Calculate the duration of the touch
-                        float touchDuration = Time.time - touchStartTime;
+                        Touch touch = Input.GetTouch(i);
 
-                        if (touchDuration < tapDurationThreshold)
+                        if (touch.phase == UnityEngine.TouchPhase.Began)
                         {
-                            // The touch duration is below the threshold, consider it a quick tap
-                            screenPressed = true;
-                            Debug.Log("Quick tap detected");
+                            // Record the start time of the touch
+                            touchStartTime = Time.time;
+                        }
+                        else if (touch.phase == UnityEngine.TouchPhase.Ended)
+                        {
+                            // Calculate the duration of the touch
+                            float touchDuration = Time.time - touchStartTime;
+
+                            if (touchDuration < tapDurationThreshold)
+                            {
+                                // The touch duration is below the threshold, consider it a quick tap
+                                screenPressed = true;
+                                Debug.Log("Quick tap detected");
+                            }
+                            else
+                            {
+                                // Reset the boolean variable and touch start time
+                                screenPressed = false;
+                                touchStartTime = 0f;
+                            }
                         }
                         else
                         {
-                            // Reset the boolean variable and touch start time
                             screenPressed = false;
-                            touchStartTime = 0f;
                         }
-                    }                   
-                    else
-                    {
-                        screenPressed = false;
                     }
+
                 }
             }
             else
@@ -161,6 +173,15 @@ namespace SwordfishGame
                 leanAction.performed -= OnLeanPreformed;
 
             }                         
+        }
+
+        bool JoystickIsMoved(Joystick joystick)
+        {
+            if (joystick.Horizontal > 0.25 || joystick.Horizontal < -0.25 || joystick.Vertical > 0.25 || joystick.Vertical < -0.25)
+            {
+                return true;
+            }
+            return false;
         }
 
         void FindComponents()
