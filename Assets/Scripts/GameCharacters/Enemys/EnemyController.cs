@@ -31,11 +31,13 @@ namespace SwordfishGame
         private void OnEnable()
         {
             EnemyManager.enemyAliveCounter += 1;
+            attackTarget = null;
         }
 
         private void OnDisable()
         {
             EnemyManager.enemyAliveCounter -= 1;
+            attackTarget = null;
         }
 
         // Start is called before the first frame update

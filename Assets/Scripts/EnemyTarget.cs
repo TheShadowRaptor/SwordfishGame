@@ -8,9 +8,11 @@ public class EnemyTarget : MonoBehaviour
     static public List<GameObject> leftTargets = new List<GameObject>();
 
     public bool isRight = false;
+    public bool isAttackTarget = false;
 
     private void OnEnable()
     {
+        if (isAttackTarget) return;
         if (isRight) rightTargets.Add(this.gameObject);
         else leftTargets.Add(this.gameObject);
         if (isRight) Debug.Log($"right targets = {rightTargets.Count}");
