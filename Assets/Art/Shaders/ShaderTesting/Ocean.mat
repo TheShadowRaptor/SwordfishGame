@@ -83,7 +83,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _IntersectionFoamTexture:
-        m_Texture: {fileID: 2800000, guid: 59dd0fbbf36cdfc49b128fcf6caef541, type: 3}
+        m_Texture: {fileID: 2800000, guid: bdb31861d8853b74a961ff775dcc12d9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _METALNESS_MAP:
@@ -118,8 +118,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _RefractedUVs_9bb02bcb50e14f08a472b4f29b76f988_Texture2D_3179080583:
+        m_Texture: {fileID: 2800000, guid: bdb31861d8853b74a961ff775dcc12d9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _RefractedUVs_9bb02bcb50e14f08a472b4f29b76f988_Texture2D_3243414645:
         m_Texture: {fileID: 2800000, guid: 59dd0fbbf36cdfc49b128fcf6caef541, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RippleNoiseTexture:
+        m_Texture: {fileID: 2800000, guid: bdb31861d8853b74a961ff775dcc12d9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_75fd2245519047aea3de79cf44bceffe_Texture_1:
@@ -179,10 +187,10 @@ Material:
     - _DstBlend: 0
     - _EMISSION_WEIGHT: 1
     - _EnvironmentReflections: 1
-    - _FadeOpacity: 0.3
+    - _FadeOpacity: 8.24
     - _Fade_Opacity: 0.15
-    - _Float: 0.507
-    - _Float_1: 0
+    - _Float: -1
+    - _Float_1: 1
     - _FoamBlend: 1
     - _FoamCutoff: 0.15
     - _FoamDepth: 0.85
@@ -196,29 +204,30 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _HorizonDistance: 11.6
-    - _IntersectionFoamCutoff: 0.34
-    - _IntersectionFoamDepth: 1.05
+    - _IntersectionFoamCutoff: 2.13
+    - _IntersectionFoamDepth: 2.21
     - _IntersectionFoamDirection: 0.376
-    - _IntersectionFoamFade: 1.39
-    - _IntersectionFoamScale: 3.16
+    - _IntersectionFoamFade: 1.92
+    - _IntersectionFoamScale: 0.18
     - _IntersectionFoamSpeed: 0.237
     - _LightingColour: 1.87
     - _LightingHardness: 2.23
     - _LightingSmoothness: 2.17
     - _METALNESS: 0
-    - _MainLightSmoothness: 0.508
-    - _MainLightingHardness: 0.824
+    - _MainLightSmoothness: 0.35
+    - _MainLightingHardness: 0.274
     - _Metallic: 0
     - _NoiseDensity: 1.09
     - _NoiseStrength: 0.07
     - _NormalsDensity: 3.62
     - _NormalsDirection: 0.731
-    - _NormalsScale: 0.11
-    - _NormalsSpeed: 0.14
+    - _NormalsScale: 2.09
+    - _NormalsSpeed: 0.93
     - _NormalsStrength: 3.16
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _PosterizeStep: 11.16
+    - _Posterize: 0
+    - _PosterizeStep: 280.13
     - _QueueControl: 0
     - _QueueOffset: 0
     - _REFLECTIONS_IOR: 1.52
@@ -232,22 +241,23 @@ Material:
     - _RippleDensity: 5
     - _RippleDirection: 0.11
     - _RipplePower: 5
-    - _RippleScale: 4.1
+    - _RippleScale: 0.07
     - _RippleSpeed: 0.121
-    - _RippleStrength: 0.006
+    - _RippleStrength: 0.227
     - _Scale: 0.03
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _Speed: 1
     - _SrcBlend: 1
+    - _Step: 9.7
     - _Strength: 0.22
-    - _SunReflectionEdge: 0.631
+    - _SunReflectionEdge: 0.549
     - _Surface: 0
     - _SurfaceFoamBlend: -1.3
     - _SurfaceFoamDirection: 0.132
     - _SurfaceFoamEdge: 0.869
-    - _SurfaceFoamScale: 4.3
+    - _SurfaceFoamScale: 0.11
     - _SurfaceFoamSpeed: 0.043
     - _TRANSPARENCY: 0
     - _VoronoiDensity: 1.14
@@ -263,6 +273,9 @@ Material:
     - _ZWrite: 1
     - _blend: 0
     - _direction: 0
+    - _in: 0.58
+    - _out: 0.53
+    - _polerizeyes: 0
     - _step: 29.45
     - _test: 2.38
     - _testtt: 0.37
@@ -278,16 +291,19 @@ Material:
     - _FoamColor: {r: 0, g: 0, b: 0, a: 0}
     - _FoamColour: {r: 0.47058824, g: 0.7647059, b: 0.73839355, a: 1}
     - _HorizonColour: {r: 0.20505883, g: 0.6509804, b: 0.61202294, a: 0.6392157}
+    - _InValue_no_touchy: {r: 0.3, g: 1, b: 0, a: 0}
     - _IntersectionFoamColour: {r: 0.56470275, g: 0.8490566, b: 0.8371938, a: 1}
-    - _LightingColour: {r: 0.42484868, g: 0.49056602, b: 0.3262727, a: 1}
+    - _LightingColour: {r: 0.3254902, g: 0.49019608, b: 0.44130787, a: 0.36078432}
+    - _OutValue_no_touchy: {r: 0, g: 1, b: 0, a: 0}
     - _Overlay: {r: 0, g: 0, b: 0, a: 0}
     - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _RippleColor: {r: 1, g: 1, b: 1, a: 0}
-    - _ShallowColor: {r: 0.27058825, g: 0.5214071, b: 0.6039216, a: 1}
+    - _ShallowColor: {r: 0.27058816, g: 0.5214071, b: 0.6039216, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SurfaceFoamColour: {r: 0.052572004, g: 0.06669866, b: 0.078, a: 1}
     - _UV: {r: 1, g: 1, b: 0, a: 0}
-    - _Vector2: {r: 1.31, g: 0, b: 0, a: 0}
-    - _Vector2_1: {r: 0.48, g: 1, b: 0, a: 0}
+    - _Vector2: {r: 0, g: 1, b: 0, a: 0}
+    - _Vector2_1: {r: 0.3, g: 1, b: 0, a: 0}
     - _WaveDirection: {r: 5.67, g: 7.53, b: 9.9, a: 3.7}
+    - _outValue_no_touchy: {r: 0, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
