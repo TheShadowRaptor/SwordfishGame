@@ -6,5 +6,6 @@ namespace SwordfishGame
 {
     public class TutorialEvent : EventObj
     {
+
     }
 }

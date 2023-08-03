@@ -15,9 +15,5 @@ namespace SwordfishGame
         {
         
         }
-        protected void EventStart()
-        {
-
-        }
     }
 }
