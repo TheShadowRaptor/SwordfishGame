@@ -603,6 +603,12 @@
         },
         {
             "m_Id": "c3c389ff20004aeb9422373e1c122736"
+        },
+        {
+            "m_Id": "26a490386a4a44459d380e91bb7aab1b"
+        },
+        {
+            "m_Id": "a673613699044646b7b14885f66e36fa"
         }
     ],
     "m_Edges": [
@@ -4132,6 +4138,26 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "26a490386a4a44459d380e91bb7aab1b",
+    "m_Title": "",
+    "m_Content": "I dont like how the reflected light follows the view so violetntly. Typically the reclected light kinds stays in the same general area on the reflection. Maybe warping slightly depending on where your looking at it. But this one just moved too much.",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": -724.0,
+        "y": -1390.0,
+        "width": 200.0,
+        "height": 160.0
+    },
+    "m_Group": {
+        "m_Id": "5b7f6b67b0d84e1ab59b428e80d1878d"
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BlockNode",
     "m_ObjectId": "282db176c80c4338a478e2fdf50e167f",
     "m_Group": {
@@ -7438,7 +7464,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": 1.0,
-    "m_FloatType": 1,
+    "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
         "y": 10.0
@@ -10912,6 +10938,26 @@
     "m_Position": {
         "x": 583.9998779296875,
         "y": -797.9999389648438
+    }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "a673613699044646b7b14885f66e36fa",
+    "m_Title": "",
+    "m_Content": "I'm starting to see some issues with the intresection foam on large scale objects. no matter how many settings a crank the intersection foam does not break the bounds on the object. and when your looking at an object from the top view. there is no intresection foam. \n\nthis feels so jank. why are so many things bound to object position and view?! it feels like patchwork to me XD",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": -247.0,
+        "y": 146.0,
+        "width": 200.00003051757813,
+        "height": 210.90966796875
+    },
+    "m_Group": {
+        "m_Id": "d41fb4d894e84a40b198a8f52342408e"
     }
 }
 
