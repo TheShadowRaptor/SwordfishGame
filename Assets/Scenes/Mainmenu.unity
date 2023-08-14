@@ -3824,7 +3824,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1986172532}
         m_TargetAssemblyTypeName: SwordfishGame.LevelManager, Assembly-CSharp
-        m_MethodName: SwitchSceneToCodeDev
+        m_MethodName: SwitchSceneToGameplay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

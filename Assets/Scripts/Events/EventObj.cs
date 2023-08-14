@@ -4,14 +4,19 @@ using UnityEngine;
 
 namespace SwordfishGame
 {
-    public class EventObj : MonoBehaviour
+    abstract public class EventObj : MonoBehaviour
     {
-        protected void EventStart()
+        virtual protected void EventStart()
         {
 
         }
 
-        protected void EventEnd() 
+        virtual protected void EventUpdate()
+        {
+
+        }
+
+        virtual protected void EventEnd() 
         {
         
         }
