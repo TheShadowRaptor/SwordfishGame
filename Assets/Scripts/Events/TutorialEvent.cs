@@ -7,7 +7,7 @@ namespace SwordfishGame
 {
     public class TutorialEvent : EventObj
     {
-        enum TutorialStates
+        public enum TutorialStates
         {
             learnMove,
             learnLook,
@@ -16,8 +16,8 @@ namespace SwordfishGame
             end
         }
 
-        TutorialStates state;
-        int currentState = 0;
+        public TutorialStates state;
+        int currentStateNum = 0;
         public List<string> textList = new List<string>();
         public TextMeshProUGUI text;
 
@@ -39,13 +39,25 @@ namespace SwordfishGame
 
         protected override void EventUpdate()
         {
-            text.text = textList[currentState];
+            text.text = textList[currentStateNum];
         }
 
         protected override void EventEnd()
         {
             // All goals Finished
             state = TutorialStates.end;
+        }
+
+        protected void SwitchTutorialState(int newStateNum)
+        {
+            currentStateNum = newStateNum;
+        }
+
+        int debugNum = 0;
+        public void DebugTutorial()
+        {
+            SwitchTutorialState(debugNum);
+            debugNum++;
         }
     }
 }

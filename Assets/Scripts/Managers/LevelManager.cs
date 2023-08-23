@@ -23,12 +23,12 @@ namespace SwordfishGame
 
         public void SwitchSceneToMainmenu()
         {
-            SceneManager.LoadScene(gameplayScene);
+            SceneManager.LoadScene(mainmenuScene);
         }
 
         public void SwitchSceneToGameplay()
         {
-            SceneManager.LoadScene(mainmenuScene);
+            SceneManager.LoadScene(gameplayScene);
         }
 
         public void SwitchSceneToCodeDev()
