@@ -11,11 +11,6 @@ namespace SwordfishGame
         const string codeDevScene = "Code-Dev";
         const string mainmenuScene = "Mainmenu";
 
-        void Update()
-        {
-            SceneManager.sceneLoaded += OnSceneLoaded;
-        }
-
         public void ExitGame()
         {
             Application.Quit();
@@ -24,16 +19,19 @@ namespace SwordfishGame
         public void SwitchSceneToMainmenu()
         {
             SceneManager.LoadScene(mainmenuScene);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         public void SwitchSceneToGameplay()
         {
             SceneManager.LoadScene(gameplayScene);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         public void SwitchSceneToCodeDev()
         {
             SceneManager.LoadScene(codeDevScene);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
