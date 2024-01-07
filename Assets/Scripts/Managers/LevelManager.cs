@@ -24,6 +24,7 @@ namespace SwordfishGame
 
         public void SwitchSceneToGameplay()
         {
+            MasterSingleton.Instance.PlayerController.gameObject.SetActive(true);
             SceneManager.LoadScene(gameplayScene);
             SceneManager.sceneLoaded += OnSceneLoaded;
         }

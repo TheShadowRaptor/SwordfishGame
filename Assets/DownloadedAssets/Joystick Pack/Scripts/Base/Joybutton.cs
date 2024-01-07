@@ -7,31 +7,25 @@ namespace SwordfishGame
 {
     public class Joybutton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     {
-        protected bool pressed;
+        [SerializeField] protected bool pressed;
 
         // Get/Set
         public bool Pressed { get => pressed; }
 
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            pressed = true;
-        }
+        //public void OnPointerDown(PointerEventData eventData)
+        //{
+        //    pressed = true;
+        //}
 
         public void OnPointerUp(PointerEventData eventData)
         {
             pressed = false;
         }
+
+        public void OnPointerDown(PointerEventData eventData) 
+        {
+            pressed = true;
+        }
     }
 }
+

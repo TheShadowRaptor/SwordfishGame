@@ -23,8 +23,8 @@ public class GameplayHud : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateTextValues();
-        UpdateImages();
+        // UpdateTextValues();
+        // UpdateImages();
     }
 
     void UpdateTextValues()
@@ -42,10 +42,8 @@ public class GameplayHud : MonoBehaviour
         shipHealth.text = $"Ship Health: {ShipStats.Instance.Health}";
     }
 
-    void UpdateImages()
-    {
-        if (MasterSingleton.Instance.GameManager.gameState != GameManager.GameState.gameplay) return;
-        if (MasterSingleton.Instance.PlayerController.CanLean() && !MasterSingleton.Instance.PlayerController.isLeaning) canLean.enabled = true;
-        else canLean.enabled = false;
-    }
+    //void UpdateImages()
+    //{
+    //    if (MasterSingleton.Instance.GameManager.gameState != GameManager.GameState.gameplay) return;
+    //}
 }

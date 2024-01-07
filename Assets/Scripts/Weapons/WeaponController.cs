@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 namespace SwordfishGame
 {
@@ -10,87 +9,151 @@ namespace SwordfishGame
         // Singletons
         InputManager inputManager;
 
-        [Header("Components")]
-        [SerializeField] protected Animator weaponAnimator;
-        [SerializeField] protected GameObject harpoonTip;
+        [Header("Weapon Settings")]
+        // Shown
+        [SerializeField] int chamberCapacity = 1;
+        [SerializeField] float reloadTimer = 1;
+        [SerializeField] Transform bulletHolder;
+        [SerializeField] Animator animator;
 
-        public bool tipLoaded = true;
+        // Hidden
+        int bulletsInChamber = 1;
+        bool reloaded = true;
+        bool isAiming = false;
 
-        public float reloadTime = 2;
-        float reloadTimeReset;
+        [Header("AmmoSettings")]
+        // Shown
+        [SerializeField] int maxBulletsPooled;
+        [SerializeField] GameObject bulletType;
+        [SerializeField] List<GameObject> bulletPool = new List<GameObject>();
+
+        // Hidden
+        GameObject bulletInChamber;
+
+        // Resets
+        float reloadTimerReset;
 
         // Start is called before the first frame update
         void Start()
         {
-            reloadTimeReset = reloadTime;                  
-            FindComponents();
+            inputManager = MasterSingleton.Instance.InputManager;
+            InstantiateBullets();
+            reloadTimerReset = reloadTimer;
         }
 
         // Update is called once per frame
         void Update()
         {
-            Attack();
-            DeactivateHarpoonTip();
+            CountReloadingTimer();
+            ToggleAiming();
+            ShootOrReload();
         }
 
-        private bool attackButtonPressed = false;
-        void Attack()
+        bool isJoyAttackPressed;
+        void ShootOrReload()
         {
-            if (tipLoaded)
+            if (!isJoyAttackPressed) 
             {
-                AnimatorStateInfo stateInfo = weaponAnimator.GetCurrentAnimatorStateInfo(0);
-                if (stateInfo.IsName("AttackAnimation") && stateInfo.normalizedTime >= 1.0f)
+                if (inputManager.joyAttack.Pressed && isAiming)
                 {
-                    weaponAnimator.SetBool("isAttacking", false);
-                }
-                else
-                {
-                    if (inputManager.ScreenPressed && !attackButtonPressed)
-                    {
-                        weaponAnimator.SetBool("isAttacking", true);
-                        attackButtonPressed = true;
-                    }
-                    else if (!inputManager.ScreenPressed)
-                    {
-                        attackButtonPressed = false;
-                    }
+                    if (bulletsInChamber < chamberCapacity) ReloadWeapon();
+                    else if (bulletsInChamber > 0) ShootWeapon();
+
+                    animator.SetTrigger("fired");
+                    isJoyAttackPressed = true;
+                    isAiming = false;
                 }
             }
-            else
+            else if (!inputManager.joyAttack.Pressed) 
             {
-                Reload();
+                isJoyAttackPressed = false;
+                ReloadWeapon();
             }
         }
 
-        void Reload()
+        bool isJoyAimPressed;
+        void ToggleAiming() 
         {
-            //Debug.Log("Reloading");
-            weaponAnimator.SetBool("isAttacking", false);
-            reloadTime -= Time.deltaTime;
-            if (reloadTime <= 0) 
+            if (!isJoyAimPressed)
             {
-                reloadTime = reloadTimeReset;
-                tipLoaded = true;
+                if (inputManager.joyAim.Pressed)
+                {
+                    if (!isAiming) isAiming = true;
+                    else isAiming = false;
+
+                    isJoyAimPressed = true;
+                } 
+            }
+            else if (!inputManager.joyAim.Pressed) 
+            {
+                isJoyAimPressed = false;
+            }
+
+            animator.SetBool("isAiming", isAiming);
+        }
+
+        void ReloadWeapon()
+        {     
+            if (reloaded)
+            {
+                reloaded = false;
+                   
             }
         }
 
-        void FindComponents()
+        void CountReloadingTimer()
         {
-            inputManager = MasterSingleton.Instance.InputManager;
-        }
-
-        void DeactivateHarpoonTip()
-        {
-            harpoonTip.gameObject.SetActive(tipLoaded);
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (!tipLoaded) return;
-            if (other.gameObject.CompareTag("Enemy"))
+            if (reloaded == false && bulletsInChamber == 0)
             {
-                other.gameObject.GetComponent<EnemyStats>().TakeDamage(MasterSingleton.Instance.PlayerStats.Damage);
-                tipLoaded = false;
+                reloadTimer -= Time.deltaTime;
+
+                if(reloadTimer <= 0)
+                {
+                    reloadTimer = reloadTimerReset;
+                    bulletsInChamber++;
+                    reloaded = true;
+                    PullBullet();
+                }
+            }
+        }
+
+        void ShootWeapon()
+        {
+            bulletInChamber.GetComponent<Bullet>().isFired = true;
+            bulletInChamber.transform.parent = null;
+            bulletsInChamber--;
+        }
+
+        // BulletPool
+        void InstantiateBullets() 
+        {
+            for (int i = 0; i < maxBulletsPooled; i++) 
+            {
+                GameObject newBullet = Instantiate(bulletType);
+                newBullet.GetComponent<Bullet>().ResetBulletToWeapon(bulletHolder);
+                newBullet.transform.localScale = new Vector3(100, 100, 100);
+                bulletPool.Add(newBullet);
+            }
+
+            bulletPool[0].SetActive(true);
+            bulletInChamber = bulletPool[0];
+        }
+
+        void PullBullet() 
+        {
+            GameObject bullet = bulletPool[0];
+            bullet.GetComponent<Bullet>().ResetBulletToWeapon(bulletHolder);
+            bullet.SetActive(true);
+            bulletInChamber = bullet;
+            bulletPool.RemoveAt(0);
+            bulletPool.Add(bullet);
+        }
+
+        public void ResetBullets()
+        {
+            foreach (GameObject bullet in bulletPool) 
+            {
+                bullet.GetComponent<Bullet>().ResetBulletToWeapon(bulletHolder);
             }
         }
     }
