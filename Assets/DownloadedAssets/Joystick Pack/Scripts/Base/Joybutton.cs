@@ -5,17 +5,12 @@ using UnityEngine.EventSystems;
 
 namespace SwordfishGame
 {
-    public class Joybutton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
+    public class Joybutton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IPointerExitHandler
     {
         [SerializeField] protected bool pressed;
 
         // Get/Set
         public bool Pressed { get => pressed; }
-
-        //public void OnPointerDown(PointerEventData eventData)
-        //{
-        //    pressed = true;
-        //}
 
         public void OnPointerUp(PointerEventData eventData)
         {
@@ -25,6 +20,11 @@ namespace SwordfishGame
         public void OnPointerDown(PointerEventData eventData) 
         {
             pressed = true;
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            pressed = false;
         }
     }
 }

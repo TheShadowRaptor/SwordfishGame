@@ -43,6 +43,7 @@ namespace SwordfishGame
         public void SetStateToMainmenu()
         {
             gameState = GameState.mainmenu;
+            MasterSingleton.Instance.PlayerController.ResetStats();
         }
 
         public void SetStateToGameplay()
@@ -68,7 +69,7 @@ namespace SwordfishGame
         void ManageGameplayState()
         {
             Time.timeScale = 1;
-            Cursor.lockState = CursorLockMode.Locked;
+            // Cursor.lockState = CursorLockMode.Locked;
 
             // RenderSettings.fog = enableFog;
             // RenderSettings.fogColor = fogColor;

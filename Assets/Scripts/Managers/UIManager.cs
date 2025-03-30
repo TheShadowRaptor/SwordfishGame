@@ -14,7 +14,6 @@ namespace SwordfishGame
             gameplay,
             pause,
             gameover,
-            win,
         }
         CanvasState canvasState;
 
@@ -23,21 +22,20 @@ namespace SwordfishGame
         Canvas gameplay;
         Canvas pause;
         Canvas gameover;
-        Canvas win;
 
-        // Start is called before the first frame update
-        void Awake()
+        public Canvas Mainmenu { get => mainmenu; }
+        public Canvas Settings { get => settings; }
+        public Canvas Gameplay { get => gameplay; }
+        public Canvas Pause { get => pause; }
+        public Canvas Gameover { get => gameover; }
+
+        void Start()
         {
             mainmenu = transform.Find("CanvasMainmenu").GetComponent<Canvas>();
             settings = transform.Find("CanvasSettings").GetComponent<Canvas>();
             gameplay = transform.Find("CanvasGameplay").GetComponent<Canvas>();
             pause = transform.Find("CanvasPause").GetComponent<Canvas>();
             gameover = transform.Find("CanvasGameover").GetComponent<Canvas>();
-            win = transform.Find("CanvasWin").GetComponent<Canvas>();
-        }
-
-        void Start()
-        {
             SwitchCanvasToMainmenu();    
         }
 
@@ -67,16 +65,13 @@ namespace SwordfishGame
                 case CanvasState.gameover:
                     GameoverCanvasOn();
                     break;
-
-                case CanvasState.win:
-                    WinCanvasOn();
-                    break;
             }
         }
 
         public void SwitchCanvasToMainmenu()
         {
             canvasState = CanvasState.mainmenu;
+            gameplay.GetComponent<GameplayHud>().ResetScore();
         }
 
         public void SwitchCanvasToSettings()
@@ -97,10 +92,6 @@ namespace SwordfishGame
         {
             canvasState = CanvasState.gameover;
         }
-        public void SwitchCanvasToWin()
-        {
-            canvasState = CanvasState.win;
-        }
 
         void MainmenuCanvasOn()
         {
@@ -109,7 +100,6 @@ namespace SwordfishGame
             gameplay.enabled = false;
             pause.enabled = false;
             gameover.enabled = false;
-            win.enabled = false;
         }
 
         void SettingsCanvasOn()
@@ -119,7 +109,6 @@ namespace SwordfishGame
             gameplay.enabled = false;
             pause.enabled = false;
             gameover.enabled = false;
-            win.enabled = false;
         }
 
         void GameplayCanvasOn()
@@ -129,7 +118,6 @@ namespace SwordfishGame
             gameplay.enabled = true;
             pause.enabled = false;
             gameover.enabled = false;
-            win.enabled = false;
         }
 
         void PauseCanvasOn()
@@ -139,7 +127,6 @@ namespace SwordfishGame
             gameplay.enabled = false;
             pause.enabled = true;
             gameover.enabled = false;
-            win.enabled = false;
         }
 
         void GameoverCanvasOn()
@@ -149,17 +136,6 @@ namespace SwordfishGame
             gameplay.enabled = false;
             pause.enabled = false;
             gameover.enabled = true;
-            win.enabled = false;
-        }
-
-        void WinCanvasOn()
-        {
-            mainmenu.enabled = false;
-            settings.enabled = false;
-            gameplay.enabled = false;
-            pause.enabled = false;
-            gameover.enabled = false;
-            win.enabled = true;
         }
 
         bool NullsFound()
@@ -169,8 +145,16 @@ namespace SwordfishGame
             if (gameplay == null) return true;
             if (pause == null) return true;
             if (gameover == null) return true;
-            if (win == null) return true;
             return false;
         }
-    }
+
+        void OnGUI()
+        {
+            if (NullsFound()) 
+            {
+                GUI.Label(new Rect(0, 0, 1000, 1000), "NullsFound");
+
+            }
+        }
+    }   
 }

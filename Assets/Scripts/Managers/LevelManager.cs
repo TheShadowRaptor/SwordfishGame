@@ -19,26 +19,17 @@ namespace SwordfishGame
         public void SwitchSceneToMainmenu()
         {
             SceneManager.LoadScene(mainmenuScene);
-            SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         public void SwitchSceneToGameplay()
         {
-            MasterSingleton.Instance.PlayerController.gameObject.SetActive(true);
             SceneManager.LoadScene(gameplayScene);
-            SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         public void SwitchSceneToCodeDev()
         {
             SceneManager.LoadScene(codeDevScene);
-            SceneManager.sceneLoaded += OnSceneLoaded;
         }
-
-        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            MasterSingleton.Instance.PlayerController.SpawnOnSpawnPoint();
-        } 
         
     }
 }

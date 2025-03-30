@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
+  version: 7
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -23,6 +23,8 @@ Material:
   m_Name: Ocean_Showcase
   m_Shader: {fileID: -6465566751694194690, guid: cb985d0ac30eb7f4dbb13d73b1808b3f,
     type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -31,6 +33,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -179,7 +182,7 @@ Material:
     - _Density: 0.79
     - _DepthFade: 2.69
     - _DepthFadeBlend: 1.88
-    - _DepthFadeDistance: 1.92
+    - _DepthFadeDistance: 13.23
     - _Depth_Fade_Distance: 1.12
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
@@ -217,12 +220,12 @@ Material:
     - _MainLightSmoothness: 0.503
     - _MainLightingHardness: 0.252
     - _Metallic: 0
-    - _NoiseDensity: 1.09
-    - _NoiseStrength: 0.07
+    - _NoiseDensity: 1.34
+    - _NoiseStrength: 0
     - _NormalsDensity: 3.62
     - _NormalsDirection: 0.731
     - _NormalsScale: 2.93
-    - _NormalsSpeed: 0.93
+    - _NormalsSpeed: 9.85
     - _NormalsStrength: 3.16
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -239,11 +242,11 @@ Material:
     - _RefractionSpeed: 0.224
     - _RefractionStrength: 0.003
     - _RippleDensity: 5
-    - _RippleDirection: 0.11
+    - _RippleDirection: 0.87
     - _RipplePower: 5
     - _RippleScale: 0.03
-    - _RippleSpeed: 0.01
-    - _RippleStrength: 0.227
+    - _RippleSpeed: 0.221
+    - _RippleStrength: 0.043
     - _Scale: 0.03
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -261,12 +264,12 @@ Material:
     - _SurfaceFoamSpeed: 0.043
     - _TRANSPARENCY: 0
     - _VoronoiDensity: 1.95
-    - _VoronoiStrength: 0.054
+    - _VoronoiStrength: 0.083
     - _WaterAlpha: 0.82
     - _WaterHeight: 1
     - _WaterNoiseScale: 0.25
     - _WaterSpeed: 1
-    - _WaveLength: 1.75
+    - _WaveLength: 0.5
     - _WaveSpeed: 0.5
     - _WaveSteepness: 1
     - _WorkflowMode: 1

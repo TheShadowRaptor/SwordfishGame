@@ -8,16 +8,16 @@ namespace SwordfishGame
     {
         Rigidbody rb;
         [SerializeField] protected EnemyStats stats;
-        [SerializeField] protected GameObject ship;
+        //[SerializeField] protected GameObject ship;
 
-        [Header("Patrol Settings")]
-        public GameObject target;
-        private GameObject attackTarget;
-        protected int nextTarget = 0;
-        bool willJump = false;
+        //[Header("Patrol Settings")]
+        //public GameObject target;
+        //private GameObject attackTarget;
+        //protected int nextTarget = 0;
+        //bool willJump = false;
 
         // Targets selected for the next enemy to use
-        List<GameObject> selectedTargets = new List<GameObject>();
+        //List<GameObject> selectedTargets = new List<GameObject>();
 
         public enum EnemyStates
         {
@@ -31,13 +31,13 @@ namespace SwordfishGame
         private void OnEnable()
         {
             EnemyManager.enemyAliveCounter += 1;
-            attackTarget = null;
+            //attackTarget = null;
         }
 
         private void OnDisable()
         {
             EnemyManager.enemyAliveCounter -= 1;
-            attackTarget = null;
+            //attackTarget = null;
         }
 
         // Start is called before the first frame update
@@ -45,9 +45,9 @@ namespace SwordfishGame
         {
             rb = GetComponent<Rigidbody>();
             enemyState = EnemyStates.swimming;
-            ship = ShipStats.Instance.gameObject;
+            //ship = ShipStats.Instance.gameObject;
             stats.timeTillNextAttackReset = stats.timeTillNextAttack;
-            attackTarget = null;
+            //attackTarget = null;
         }
 
         // Update is called once per frame
@@ -57,15 +57,15 @@ namespace SwordfishGame
             switch (enemyState)
             {
                 case EnemyStates.swimming:
-                    Swim();
+                    //Swim();
                     break;
 
                 case EnemyStates.ramming:
-                    Swim();
+                    //Swim();
                     break;
 
                 case EnemyStates.attacking:
-                    CheckIfCanDamageShip();
+                    //CheckIfCanDamageShip();
                     break;
                     
                 case EnemyStates.dying:
@@ -73,74 +73,80 @@ namespace SwordfishGame
             }
         }
 
+        private void FixedUpdate()
+        {
+            Swim();
+        }
+
         private void Swim()
         {
-            if (target == null)
-            {
-                return;
-            }
+            //if (target == null)
+            //{
+            //    return;
+            //}
 
             // Rotate towards target
-            Vector3 targetDirection = target.transform.position - transform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, stats.TurnSpeed * Time.deltaTime);
+            // Vector3 targetDirection = target.transform.position - transform.position;
+            // Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+            // transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, stats.TurnSpeed * Time.deltaTime);
 
-            Vector3 enemyDistancePos = transform.position;
-            Vector3 targetDistancePos = target.transform.position;
+            // Vector3 enemyDistancePos = transform.position;
+            // Vector3 targetDistancePos = target.transform.position;
 
-            enemyDistancePos.y = 0;
-            targetDistancePos.y = 0;
+            // enemyDistancePos.y = 0;
+            // targetDistancePos.y = 0;
 
-            float distance = Vector3.Distance(enemyDistancePos, targetDistancePos);
+            // float distance = Vector3.Distance(enemyDistancePos, targetDistancePos);
 
             if (enemyState == EnemyStates.swimming)
             {
                 // Move towards target
-                transform.position += transform.forward * stats.MovementSpeed * Time.deltaTime;
+                //transform.position += transform.forward * stats.MovementSpeed * Time.deltaTime;
+                transform.Translate(Vector3.back * stats.MovementSpeed * Time.deltaTime, Space.World);
 
                 // Check if half way from the target
-                if (distance <= 20f)
-                {
-                    enemyState = EnemyStates.ramming;
-                }
+                // if (distance <= 20f)
+                // {
+                //     enemyState = EnemyStates.ramming;
+                // }
             }
-            else if (enemyState == EnemyStates.ramming) 
-            {
-                // Ram towards target
-                transform.position += transform.forward * stats.rammingSpeed * Time.deltaTime;
-                // Check if reached the target
-                if  (distance < 1f && attackTarget != null)
-                {
-                    enemyState = EnemyStates.attacking;
-                }
-                else if (distance < 1f && attackTarget == null)
-                {
-                    attackTarget = target.transform.GetChild(0).gameObject;
-                    target = attackTarget;
+            // else if (enemyState == EnemyStates.ramming) 
+            // {
+            //     // Ram towards target
+            //     transform.position += transform.forward * stats.rammingSpeed * Time.deltaTime;
+            //     // Check if reached the target
+            //     if  (distance < 1f && attackTarget != null)
+            //     {
+            //         enemyState = EnemyStates.attacking;
+            //     }
+            //     else if (distance < 1f && attackTarget == null)
+            //     {
+            //         attackTarget = target.transform.GetChild(0).gameObject;
+            //         target = attackTarget;
 
-                }
+            //     }
                 
-            }
+            //}
         }
 
-        private bool CanAttack()
-        {
-            stats.timeTillNextAttack -= Time.deltaTime;
+        //private bool CanAttack()
+        //{
+        //    stats.timeTillNextAttack -= Time.deltaTime;
 
-            if (stats.timeTillNextAttack <= 0)
-            {
-                return true;
-            }
-            return false;
-        }
+        //    if (stats.timeTillNextAttack <= 0)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
-        private void CheckIfCanDamageShip()
-        {
-            if (CanAttack())
-            {
-                ship.GetComponent<ShipStats>().TakeDamage(stats.damage);
-                stats.timeTillNextAttack = stats.timeTillNextAttackReset;
-            }
-        }
+        //private void CheckIfCanDamageShip()
+        //{
+        //    if (CanAttack())
+        //    {
+        //        ship.GetComponent<ShipStats>().TakeDamage(stats.damage);
+        //        stats.timeTillNextAttack = stats.timeTillNextAttackReset;
+        //    }
+        //}
     }
 }

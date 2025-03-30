@@ -46,6 +46,8 @@ namespace SwordfishGame
                     this.gameObject.SetActive(false);
                 }
             }
+
+            movementSpeed = MasterSingleton.Instance.PlayerController.ShipSpeed;
         }
 
         public void Spawn()

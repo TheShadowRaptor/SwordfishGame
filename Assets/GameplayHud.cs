@@ -7,43 +7,31 @@ using UnityEngine.UI;
 
 public class GameplayHud : MonoBehaviour
 {
-    public TextMeshProUGUI waveDir;
-    public TextMeshProUGUI waveNum;
-    public TextMeshProUGUI enemiesRemaining;
+    public int score;
     public TextMeshProUGUI shipHealth;
+    public TextMeshProUGUI scoreTextMesh;
+    public TextMeshProUGUI finalScore;
 
-    public Image canLean;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        UpdateShipHealth(3);
+        AddScore(0);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateShipHealth(int health)
     {
-        // UpdateTextValues();
-        // UpdateImages();
+        shipHealth.text = "Health: " + health.ToString();
     }
 
-    void UpdateTextValues()
+    public void AddScore(int amount)
     {
-        if (MasterSingleton.Instance.GameManager.gameState != GameManager.GameState.gameplay) return;
-        if (MasterSingleton.Instance.EnemyManager.spawnWaveOnRight)
-        {
-            waveDir.text = $"right";
-        }
-
-        else waveDir.text = $"Left";
-
-        waveNum.text = $"Wave: {MasterSingleton.Instance.EnemyManager.waveCounter}";
-        enemiesRemaining.text = $"Swordfish: {EnemyManager.enemyAliveCounter}";
-        shipHealth.text = $"Ship Health: {ShipStats.Instance.Health}";
+        score += amount;
+        scoreTextMesh.text = "Score: " + score.ToString();
+        finalScore.text = "Final Score " + score.ToString();
     }
 
-    //void UpdateImages()
-    //{
-    //    if (MasterSingleton.Instance.GameManager.gameState != GameManager.GameState.gameplay) return;
-    //}
+    public void ResetScore() 
+    {
+        score = 0;
+    }
 }

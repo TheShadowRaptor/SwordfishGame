@@ -76,7 +76,7 @@ namespace SwordfishGame
                 // Spawn next enemy from object pool
                 GameObject enemy = GetNextEnemyFromPool();
                 enemy.transform.position = GetSpawnPosition();
-                enemy.GetComponent<EnemyController>().target = SetTarget(enemy.transform.position);
+                //enemy.GetComponent<EnemyController>().target = SetTarget(enemy.transform.position);
                 enemy.GetComponent<EnemyStats>().InitStats(1);
                 enemy.GetComponent<EnemyStats>().Spawn();
                 enemy.SetActive(true);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace SwordfishGame
 {
@@ -15,9 +16,7 @@ namespace SwordfishGame
         private EnemyManager enemyManager;
         private UIManager uIManager;
         private InputManager inputManager;
-        private PlayerStats playerStats;
         private PlayerController playerController;
-        private WeaponController weaponController;
         private CameraController cameraController;
         private OceanManager oceanManager;
 
@@ -27,11 +26,10 @@ namespace SwordfishGame
         public EnemyManager EnemyManager { get => enemyManager; }
         public UIManager UIManager { get => uIManager; }
         public InputManager InputManager { get => inputManager; }
-        public PlayerStats PlayerStats { get => playerStats; }
         public PlayerController PlayerController { get => playerController; }
         public CameraController CameraController { get => cameraController; }
-        public WeaponController WeaponController { get => weaponController; }
         public OceanManager OceanManager { get => oceanManager; }
+        public EventSystem eventSystem;
 
         // Awake is called when object is first initialized
         void Awake()
@@ -40,7 +38,6 @@ namespace SwordfishGame
             {
                 instance = this;
             }
-
             else
             {
                 Destroy(gameObject);
@@ -48,15 +45,14 @@ namespace SwordfishGame
             }
             DontDestroyOnLoad(gameObject);
 
+
             // Find child gameobjects
             gameManager = GetComponentInChildren<GameManager>();
             levelManager = GetComponentInChildren<LevelManager>();
             enemyManager = GetComponentInChildren<EnemyManager>();
             uIManager = GetComponentInChildren<UIManager>();
             inputManager = GetComponentInChildren<InputManager>();
-            playerStats = GetComponentInChildren<PlayerStats>();
             playerController = GetComponentInChildren<PlayerController>();
-            weaponController = GetComponentInChildren<WeaponController>();
             cameraController = GetComponentInChildren<CameraController>();
             oceanManager = GetComponentInChildren<OceanManager>();
         }
